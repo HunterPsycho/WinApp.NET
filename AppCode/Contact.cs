@@ -24,6 +24,25 @@ namespace WinAppNET.AppCode
             this.family_name = family_name;
         }
 
+        public string FullName
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(this.given_name) || !String.IsNullOrEmpty(this.family_name))
+                {
+                    return this.given_name + " " + this.family_name;
+                }
+                else if (!String.IsNullOrEmpty(this.nickname))
+                {
+                    return this.nickname;
+                }
+                else
+                {
+                    return this.jid.Split('@').First();
+                }
+            }
+        }
+
         public override string ToString()
         {
             string ret = "";

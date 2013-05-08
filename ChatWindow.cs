@@ -36,7 +36,7 @@ namespace WinAppNET
             WappSocket.Instance.WhatsSendHandler.SendPresenceSubscriptionRequest(this.target);
 
             //load image
-            string filepath = this.getCacheImagePath();
+            string filepath = getCacheImagePath(this.target);
             if (File.Exists(filepath))
             {
                 try
@@ -46,24 +46,24 @@ namespace WinAppNET
                 }
                 catch (Exception ex)
                 {
-                    this.GetImageAsync();
+                    GetImageAsync(this.target);
                 }
 
             }
             else
             {
-                this.GetImageAsync();
+                GetImageAsync(this.target);
             }
         }
 
-        protected string getCacheImagePath()
+        public static string getCacheImagePath(string target)
         {
-            return Directory.GetCurrentDirectory() + "\\data\\profilecache\\" + this.target + ".jpg";
+            return Directory.GetCurrentDirectory() + "\\data\\profilecache\\" + target + ".jpg";
         }
 
-        public void GetImageAsync()
+        public static string GetImageAsync(string jid)
         {
-            WappSocket.Instance.WhatsSendHandler.SendGetPhoto(this.target, false);
+            return WappSocket.Instance.WhatsSendHandler.SendGetPhoto(jid, false);
         }
 
         void ProcessGroupChat()
@@ -302,7 +302,7 @@ namespace WinAppNET
         {
             //redownload image
             this.pictureBox1.Image.Dispose();
-            this.GetImageAsync();
+            GetImageAsync(this.target);
         }
 
         protected override bool ShowWithoutActivation

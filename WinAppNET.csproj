@@ -34,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>winapp.ico</ApplicationIcon>
@@ -58,6 +59,8 @@
     <Reference Include="MetroFramework.Fonts">
       <HintPath>Libraries\MetroFramework.Fonts.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PhoneNumbers">
       <HintPath>Libraries\PhoneNumbers.dll</HintPath>
     </Reference>
@@ -75,10 +78,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WhatsAppApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\WhatsAppApi.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\Contact.cs" />
@@ -105,6 +104,12 @@
     <Compile Include="ContactsSelector.Designer.cs">
       <DependentUpon>ContactsSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListContact.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ListContact.Designer.cs">
+      <DependentUpon>ListContact.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\frmGoogleSync.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ContactsSelector.resx">
       <DependentUpon>ContactsSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ListContact.resx">
+      <DependentUpon>ListContact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmGoogleSync.resx">
       <DependentUpon>frmGoogleSync.cs</DependentUpon>
@@ -153,6 +161,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="winapp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WhatsAPINet\WhatsAppApi\WhatsAppApi.csproj">
+      <Project>{3fc9096a-c4d2-40c7-be7b-d98acab3bd2b}</Project>
+      <Name>WhatsAppApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

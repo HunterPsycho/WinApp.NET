@@ -49,7 +49,7 @@ namespace WinAppNET
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.textBox1.SelectedText = "";
             this.textBox1.Size = new System.Drawing.Size(188, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBox1.TabIndex = 0;
             this.textBox1.UseSelectable = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

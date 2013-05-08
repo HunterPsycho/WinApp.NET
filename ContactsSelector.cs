@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WinAppNET.AppCode;
 using System.Threading;
 using MetroFramework.Forms;
+using WinAppNET.Controls;
 
 namespace WinAppNET
 {
@@ -26,8 +27,24 @@ namespace WinAppNET
             {
                 this._matchingContacts.Add(c);
             }
-            this.listBox1.DataSource = this._matchingContacts;
-            this.listBox1.DoubleClick += new EventHandler(listBox1_DoubleClick);
+            this.redraw();
+        }
+
+        private void redraw()
+        {
+            this.flowLayoutPanel1.Controls.Clear();
+            int i = 0;
+            foreach (Contact contact in this._matchingContacts)
+            {
+                i++;
+                if (i == 10)
+                {
+                    return;
+                }
+                ListContact lc = new ListContact(contact.jid);
+                lc.DoubleClick += this.listContact_DoubleClick;
+                this.flowLayoutPanel1.Controls.Add(lc);
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -40,22 +57,18 @@ namespace WinAppNET
                     this._matchingContacts.Add(contact);
                 }
             }
+            this.redraw();
         }
 
-        private void listBox1_DoubleClick(object sender, EventArgs e)
+        private void listContact_DoubleClick(object sender, EventArgs e)
         {
-            if (this.listBox1.SelectedItem != null)
+            ListContact lc = sender as ListContact;
+            if (lc != null)
             {
-                Contact item = (Contact)this.listBox1.SelectedItem;
-                this.SelectedJID = item.jid;
+                this.SelectedJID = lc.jid;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-        }
-
-        private void ContactsSelector_Activated(object sender, EventArgs e)
-        {
-            //this.textBox1.Focus();
         }
     }
 }

@@ -30,20 +30,11 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsList));
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.tileNew = new MetroFramework.Controls.MetroTile();
             this.tileGoogle = new MetroFramework.Controls.MetroTile();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.Enabled = false;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(23, 117);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(248, 290);
-            this.listBox1.TabIndex = 0;
             // 
             // label1
             // 
@@ -59,7 +50,7 @@ namespace WinAppNET
             // tileNew
             // 
             this.tileNew.ActiveControl = null;
-            this.tileNew.Location = new System.Drawing.Point(213, 60);
+            this.tileNew.Location = new System.Drawing.Point(219, 60);
             this.tileNew.Name = "tileNew";
             this.tileNew.Size = new System.Drawing.Size(58, 49);
             this.tileNew.Style = MetroFramework.MetroColorStyle.Red;
@@ -72,7 +63,7 @@ namespace WinAppNET
             // tileGoogle
             // 
             this.tileGoogle.ActiveControl = null;
-            this.tileGoogle.Location = new System.Drawing.Point(149, 60);
+            this.tileGoogle.Location = new System.Drawing.Point(155, 60);
             this.tileGoogle.Name = "tileGoogle";
             this.tileGoogle.Size = new System.Drawing.Size(58, 49);
             this.tileGoogle.Style = MetroFramework.MetroColorStyle.Red;
@@ -82,15 +73,23 @@ namespace WinAppNET
             this.tileGoogle.UseSelectable = true;
             this.tileGoogle.Click += new System.EventHandler(this.tileGoogle_Click);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 115);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 287);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
             // ContactsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 428);
+            this.ClientSize = new System.Drawing.Size(300, 425);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.tileGoogle);
             this.Controls.Add(this.tileNew);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ContactsList";
             this.Style = MetroFramework.MetroColorStyle.Red;
@@ -103,9 +102,9 @@ namespace WinAppNET
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
         private MetroLabel label1;
         private MetroTile tileNew;
         private MetroTile tileGoogle;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

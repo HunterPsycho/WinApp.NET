@@ -13,6 +13,7 @@ using System.Threading;
 using System.IO;
 using WhatsAppApi.Helper;
 using MetroFramework.Forms;
+using WinAppNET.Controls;
 
 namespace WinAppNET
 {
@@ -42,6 +43,7 @@ namespace WinAppNET
 
         protected void _loadConversations()
         {
+            this.flowLayoutPanel1.Controls.Clear();
             if (this.InvokeRequired)
             {
                 remoteDelegate r = new remoteDelegate(_loadConversations);
@@ -65,13 +67,17 @@ namespace WinAppNET
                         if (contact != null)
                         {
                             this.contacts.Add(contact);
+
+                            //add to richtextbox
+                            ListContact c = new ListContact(contact.jid);
+                            c.DoubleClick += this.contact_dblClick;
+                            this.flowLayoutPanel1.Controls.Add(c);
                         }
                     }
                 }
 
                 //done
                 this.label1.Hide();
-                this.listBox1.Enabled = true;
             }
         }
 
@@ -81,14 +87,14 @@ namespace WinAppNET
             this._loadConversations();
         }
 
-        private void listBox1_DoubleClick(object sender, EventArgs e)
+        private void contact_dblClick(object sender, EventArgs e)
         {
-             if (this.listBox1.SelectedItem != null)
-             {
-                 Contact item = (Contact)this.listBox1.SelectedItem;
-                 Thread chat = new Thread(new ParameterizedThreadStart(OpenConversationWithFocus));
-                 chat.Start(item.jid);
-             }
+            ListContact c = sender as ListContact;
+            if (c != null)
+            {
+                Thread chat = new Thread(new ParameterizedThreadStart(OpenConversationWithFocus));
+                chat.Start(c.jid);
+            }
         }
 
         public void OpenConversation(object jid)
@@ -152,9 +158,7 @@ namespace WinAppNET
         {
             if (forceOpen)
             {
-                Thread t = new Thread(new ParameterizedThreadStart(this.OpenConversation));
-                t.IsBackground = true;
-                t.Start(jid);
+                this.OpenConversationThread(jid, forceOpen);
             }
 
             if (this.ChatWindows.ContainsKey(jid) && !this.ChatWindows[jid].IsDisposed)
@@ -173,8 +177,9 @@ namespace WinAppNET
             return null;
         }
 
-        protected void ProcessMessages(ProtocolTreeNode[] nodes)
+        protected bool ProcessMessages(ProtocolTreeNode[] nodes, string syncID)
         {
+            bool synced = false;
             foreach (ProtocolTreeNode node in nodes)
             {
                 if (node.tag.Equals("message"))
@@ -276,6 +281,11 @@ namespace WinAppNET
                     else if (node.children.First().tag.Equals("picture"))
                     {
                         string pjid = node.GetAttribute("from");
+                        string id = node.GetAttribute("id");
+                        if (id == syncID)
+                        {
+                            synced = true;
+                        }
                         byte[] rawpicture = node.GetChild("picture").GetData();
                         Contact c = ContactStore.GetContactByJid(pjid);
 
@@ -299,12 +309,25 @@ namespace WinAppNET
                             }
                         }
                     }
+                    else if (node.children.First().tag.Equals("error") && node.children.First().GetAttribute("code") == "404")
+                    {
+                        string id = node.GetAttribute("id");
+                        if (id == syncID)
+                        {
+                            synced = true;
+                        }
+                    }
                 }
             }
+            return synced;
         }
 
-        protected void Listen()
+        protected void Listen(object foo)
         {
+            List<string> toSync = foo as List<string>;
+            string sync = toSync.First();
+            toSync.Remove(sync);
+            string syncID = ChatWindow.GetImageAsync(sync);
             while (true)
             {
                 try
@@ -330,7 +353,21 @@ namespace WinAppNET
                     else
                     {
                         ProtocolTreeNode[] nodes = WappSocket.Instance.GetAllMessages();
-                        this.ProcessMessages(nodes);
+                        if (this.ProcessMessages(nodes, syncID))
+                        {
+                            if (toSync.Count > 0)
+                            {
+                                //sync next
+                                sync = toSync.First();
+                                toSync.Remove(sync);
+                                syncID = ChatWindow.GetImageAsync(sync);
+                            }
+                            else
+                            {
+                                sync = string.Empty;
+                                syncID = string.Empty;
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
@@ -338,6 +375,21 @@ namespace WinAppNET
                     break;
                 }
             }
+        }
+
+        private List<string> refreshContactPictures()
+        {
+            Contact[] contacts = ContactStore.GetAllContacts();
+            List<string> toSync = new List<string>();
+            foreach (Contact c in contacts)
+            {
+                string path = ChatWindow.getCacheImagePath(c.jid);
+                if(!File.Exists(path))
+                {
+                    toSync.Add(c.jid);
+                }
+            }
+            return toSync;
         }
 
         private void ContactsList_Load(object sender, EventArgs e)
@@ -358,18 +410,18 @@ namespace WinAppNET
             t.IsBackground = true;
             t.Start();
 
-            this.listBox1.DoubleClick += new EventHandler(listBox1_DoubleClick);
-            
-            this.listBox1.DataSource = this.contacts;
-
             WappSocket.Create(this.username, this.password, nickname, true);
             WappSocket.Instance.Connect();
             WappSocket.Instance.Login();
             WappSocket.Instance.sendNickname(nickname);
 
-            Thread listener = new Thread(new ThreadStart(Listen));
+            List<string> toSync = this.refreshContactPictures();
+            Thread listener = new Thread(new ParameterizedThreadStart(Listen));
             listener.IsBackground = true;
-            listener.Start();
+            listener.Start(toSync);
+
+            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            this.flowLayoutPanel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
         }
 
         private void tileNew_Click(object sender, EventArgs e)
