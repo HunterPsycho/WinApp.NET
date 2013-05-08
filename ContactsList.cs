@@ -322,6 +322,15 @@ namespace WinAppNET
             return synced;
         }
 
+        private void KeepAlive()
+        {
+            while (true)
+            {
+                Thread.Sleep(150000);
+                WappSocket.Instance.WhatsSendHandler.SendActive();
+            }
+        }
+
         protected void Listen(object foo)
         {
             List<string> toSync = foo as List<string>;
@@ -419,6 +428,10 @@ namespace WinAppNET
             Thread listener = new Thread(new ParameterizedThreadStart(Listen));
             listener.IsBackground = true;
             listener.Start(toSync);
+
+            Thread alive = new Thread(new ThreadStart(KeepAlive));
+            alive.IsBackground = true;
+            alive.Start();
 
             int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
             this.flowLayoutPanel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
