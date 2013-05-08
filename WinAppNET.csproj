@@ -48,6 +48,9 @@
     <Reference Include="Google.GData.Extensions">
       <HintPath>Libraries\Google.GData.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>Libraries\MetroFramework.dll</HintPath>
+    </Reference>
     <Reference Include="PhoneNumbers">
       <HintPath>Libraries\PhoneNumbers.dll</HintPath>
     </Reference>
@@ -128,7 +131,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
