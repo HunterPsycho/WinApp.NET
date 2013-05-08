@@ -12,14 +12,14 @@ using System.Data.SQLite;
 using System.Threading;
 using System.IO;
 using WhatsAppApi.Helper;
+using MetroFramework.Forms;
 
 namespace WinAppNET
 {
-    public partial class ContactsList : Form
+    public partial class ContactsList : MetroForm
     {
         public BindingList<Contact> contacts = new BindingList<Contact>();
         public Dictionary<string, ChatWindow> ChatWindows = new Dictionary<string, ChatWindow>();
-        public ContactsSelector selector;
         protected string username;
         protected string password;
 
@@ -146,20 +146,6 @@ namespace WinAppNET
             {
 
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (this.selector == null || this.selector.IsDisposed)
-            {
-                this.selector = new ContactsSelector();
-            }
-            DialogResult res = this.selector.ShowDialog(this);
-            if (res == DialogResult.OK)
-            {
-                this.OpenConversationThread(this.selector.SelectedJID, true);
-            }
-            this.selector.Dispose();
         }
 
         protected ChatWindow getChat(string jid, bool forceOpen)
@@ -386,16 +372,28 @@ namespace WinAppNET
             listener.Start();
         }
 
-        private void btnGoogle_Click(object sender, EventArgs e)
+        private void tileNew_Click(object sender, EventArgs e)
         {
+            ContactsSelector selector = new ContactsSelector();
+
+            DialogResult res = selector.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                this.OpenConversationThread(selector.SelectedJID, true);
+            }
+            selector.Dispose();
+        }
+
+        private void tileGoogle_Click(object sender, EventArgs e)
+        {
+            //sync contacts
+            Dialogs.frmGoogleSync gsync = new Dialogs.frmGoogleSync();
+            gsync.ShowDialog();
+
             //reset
             this.contacts.Clear();
             this.label1.Text = "Updating contacts...";
             this.label1.Show();
-
-            //sync contacts
-            Dialogs.frmGoogleSync gsync = new Dialogs.frmGoogleSync();
-            gsync.ShowDialog(this);
 
             Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
             t.IsBackground = true;

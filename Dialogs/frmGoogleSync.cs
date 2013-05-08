@@ -1,6 +1,7 @@
 ﻿using Google.GData.Client;
 using Google.GData.Contacts;
 using Google.GData.Extensions;
+using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ using WinAppNET.AppCode;
 
 namespace WinAppNET.Dialogs
 {
-    public partial class frmGoogleSync : Form
+    public partial class frmGoogleSync : MetroForm
     {
         protected string email;
         protected string password;

@@ -11,10 +11,11 @@ using System.Threading;
 using WinAppNET.AppCode;
 using System.IO;
 using System.Runtime.InteropServices;
+using MetroFramework.Forms;
 
 namespace WinAppNET
 {
-    public partial class ChatWindow : Form
+    public partial class ChatWindow : MetroForm
     {
         public BindingList<WappMessage> messages = new BindingList<WappMessage>();
         public string target;
@@ -300,7 +301,7 @@ namespace WinAppNET
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             //redownload image
-            this.pictureBox1.Image = null;
+            this.pictureBox1.Image.Dispose();
             this.GetImageAsync();
         }
 

@@ -48,8 +48,15 @@
     <Reference Include="Google.GData.Extensions">
       <HintPath>Libraries\Google.GData.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="MetroFramework">
+    <Reference Include="MetroFramework, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Design">
+      <HintPath>Libraries\MetroFramework.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="MetroFramework.Fonts">
+      <HintPath>Libraries\MetroFramework.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="PhoneNumbers">
       <HintPath>Libraries\PhoneNumbers.dll</HintPath>

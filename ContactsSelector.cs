@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using WinAppNET.AppCode;
 using System.Threading;
+using MetroFramework.Forms;
 
 namespace WinAppNET
 {
-    public partial class ContactsSelector : Form
+    public partial class ContactsSelector : MetroForm
     {
         protected Contact[] _initialContacts;
         protected BindingList<Contact> _matchingContacts = new BindingList<Contact>();
@@ -54,7 +55,7 @@ namespace WinAppNET
 
         private void ContactsSelector_Activated(object sender, EventArgs e)
         {
-            this.textBox1.Focus();
+            //this.textBox1.Focus();
         }
     }
 }
