@@ -334,9 +334,15 @@ namespace WinAppNET
         protected void Listen(object foo)
         {
             List<string> toSync = foo as List<string>;
-            string sync = toSync.First();
-            toSync.Remove(sync);
-            string syncID = ChatWindow.GetImageAsync(sync);
+            string sync = string.Empty;
+            string syncID = string.Empty;
+            if (toSync.Count > 0)
+            {
+                sync = toSync.First();
+                syncID = ChatWindow.GetImageAsync(sync);
+                toSync.Remove(sync);
+            }
+            
             while (true)
             {
                 try
