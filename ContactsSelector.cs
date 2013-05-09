@@ -33,15 +33,9 @@ namespace WinAppNET
         private void redraw()
         {
             this.flowLayoutPanel1.Controls.Clear();
-            int i = 0;
             foreach (Contact contact in this._matchingContacts)
             {
-                i++;
-                if (i == 10)
-                {
-                    return;
-                }
-                ListContact lc = new ListContact(contact.jid);
+                ListContact lc = new ListContact(contact.jid, this.Style);
                 lc.DoubleClick += this.listContact_DoubleClick;
                 this.flowLayoutPanel1.Controls.Add(lc);
             }
@@ -49,15 +43,17 @@ namespace WinAppNET
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            this._matchingContacts.Clear();
-            foreach (Contact contact in this._initialContacts)
+            foreach (ListContact lc in this.flowLayoutPanel1.Controls)
             {
-                if(contact.ToString().ToLower().Contains(this.textBox1.Text.ToLower()))
+                if(lc.contact.ToString().ToLower().Contains(this.textBox1.Text.ToLower()))
                 {
-                    this._matchingContacts.Add(contact);
+                    lc.Show();
+                }
+                else
+                {
+                    lc.Hide();
                 }
             }
-            this.redraw();
         }
 
         private void listContact_DoubleClick(object sender, EventArgs e)
@@ -65,7 +61,7 @@ namespace WinAppNET
             ListContact lc = sender as ListContact;
             if (lc != null)
             {
-                this.SelectedJID = lc.jid;
+                this.SelectedJID = lc.contact.jid;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

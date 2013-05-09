@@ -7,23 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinAppNET.AppCode;
+using MetroFramework.Controls;
 
 namespace WinAppNET.Controls
 {
-    public partial class ListContact : UserControl
+    public partial class ListContact : MetroUserControl
     {
-        public string jid;
-        public ListContact(string jid)
+        public Contact contact;
+        public ListContact(string jid, MetroFramework.MetroColorStyle style)
         {
+            this.Style = style;
             InitializeComponent();
             int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
             this.Width -= vertScrollWidth;
-            this.BackColor = MetroFramework.MetroColors.Red;
-            this.jid = jid;
-            Contact c = ContactStore.GetContactByJid(jid);
-            if (c != null)
+            this.BackColor = Helper.GetMetroThemeColor(style);
+            this.contact = ContactStore.GetContactByJid(jid);
+            if (this.contact != null)
             {
-                this.lblName.Text = c.FullName;
+                this.lblName.Text = this.contact.FullName;
                 string imgpath = ChatWindow.getCacheImagePath(jid);
                 try
                 {

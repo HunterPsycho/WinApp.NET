@@ -104,6 +104,12 @@
     <Compile Include="ContactsSelector.Designer.cs">
       <DependentUpon>ContactsSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListChat.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListChat.Designer.cs">
+      <DependentUpon>ListChat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListContact.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ContactsSelector.resx">
       <DependentUpon>ContactsSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ListChat.resx">
+      <DependentUpon>ListChat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ListContact.resx">
       <DependentUpon>ListContact.cs</DependentUpon>

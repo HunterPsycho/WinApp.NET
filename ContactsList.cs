@@ -69,7 +69,7 @@ namespace WinAppNET
                             this.contacts.Add(contact);
 
                             //add to richtextbox
-                            ListContact c = new ListContact(contact.jid);
+                            ListContact c = new ListContact(contact.jid, this.Style);
                             c.DoubleClick += this.contact_dblClick;
                             this.flowLayoutPanel1.Controls.Add(c);
                         }
@@ -93,7 +93,7 @@ namespace WinAppNET
             if (c != null)
             {
                 Thread chat = new Thread(new ParameterizedThreadStart(OpenConversationWithFocus));
-                chat.Start(c.jid);
+                chat.Start(c.contact.jid);
             }
         }
 

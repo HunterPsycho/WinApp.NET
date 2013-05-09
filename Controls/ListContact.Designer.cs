@@ -65,6 +65,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "ListContact";
             this.Size = new System.Drawing.Size(240, 60);
+            this.UseCustomBackColor = true;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
