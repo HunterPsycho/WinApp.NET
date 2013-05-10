@@ -43,7 +43,7 @@ namespace WinAppNET
 
         protected void _loadConversations()
         {
-            this.flowLayoutPanel1.Controls.Clear();
+            
             if (this.InvokeRequired)
             {
                 remoteDelegate r = new remoteDelegate(_loadConversations);
@@ -51,6 +51,7 @@ namespace WinAppNET
             }
             else
             {
+                this.flowLayoutPanel1.Controls.Clear();
                 DbProviderFactory fact = DbProviderFactories.GetFactory("System.Data.SQLite");
                 using (DbConnection cnn = fact.CreateConnection())
                 {
