@@ -32,11 +32,11 @@ namespace WinAppNET
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatWindow));
             this.textBox1 = new MetroFramework.Controls.MetroTextBox();
             this.button1 = new MetroFramework.Controls.MetroButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new MetroFramework.Controls.MetroLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblUserStatus = new MetroFramework.Controls.MetroLabel();
             this.lblNick = new MetroFramework.Controls.MetroLabel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,14 +63,6 @@ namespace WinAppNET
             this.button1.Text = "Send";
             this.button1.UseSelectable = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(23, 164);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(269, 238);
-            this.listBox1.TabIndex = 3;
             // 
             // label1
             // 
@@ -108,17 +100,28 @@ namespace WinAppNET
             this.lblNick.TabIndex = 7;
             this.lblNick.Text = "NICKNAME";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(24, 165);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(267, 247);
+            this.flowLayoutPanel1.TabIndex = 8;
+            // 
             // ChatWindow
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 460);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblNick);
             this.Controls.Add(this.lblUserStatus);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -137,11 +140,11 @@ namespace WinAppNET
 
         private MetroTextBox textBox1;
         private MetroButton button1;
-        private System.Windows.Forms.ListBox listBox1;
         private MetroLabel label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private MetroLabel lblUserStatus;
         private MetroLabel lblNick;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 

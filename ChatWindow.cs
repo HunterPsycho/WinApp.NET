@@ -12,12 +12,13 @@ using WinAppNET.AppCode;
 using System.IO;
 using System.Runtime.InteropServices;
 using MetroFramework.Forms;
+using WinAppNET.Controls;
 
 namespace WinAppNET
 {
     public partial class ChatWindow : MetroForm
     {
-        public BindingList<WappMessage> messages = new BindingList<WappMessage>();
+        protected List<WappMessage> messages = new List<WappMessage>();
         public string target;
         ClientState state = ClientState.ONLINE;
         public bool IsGroup = false;
@@ -99,8 +100,6 @@ namespace WinAppNET
             this.lblNick.Text = con.nickname;
             this.lblUserStatus.Text = con.status;
 
-            listBox1.DataSource = messages;
-
             if (this.IsGroup)
                 this.ProcessGroupChat();
             else
@@ -110,6 +109,18 @@ namespace WinAppNET
             foreach (WappMessage msg in oldmessages)
             {
                 this.messages.Add(msg);
+            }
+            this.limitMessages();
+            this.redraw();
+        }
+
+        private void redraw()
+        {
+            this.flowLayoutPanel1.Controls.Clear();
+            foreach (WappMessage msg in this.messages)
+            {
+                ListChat chat = new ListChat(msg, this.Style);
+                this.flowLayoutPanel1.Controls.Add(chat);
             }
         }
 
@@ -130,8 +141,8 @@ namespace WinAppNET
 
         protected void ScrollToBottom()
         {
-            int visibleItems = this.listBox1.ClientSize.Height / this.listBox1.ItemHeight;
-            this.listBox1.TopIndex = Math.Max(this.listBox1.Items.Count - visibleItems + 1, 0);
+            //int visibleItems = this.listBox1.ClientSize.Height / this.listBox1.ItemHeight;
+            //this.listBox1.TopIndex = Math.Max(this.listBox1.Items.Count - visibleItems + 1, 0);
         }
 
         [DllImport("user32.dll")]
@@ -225,7 +236,7 @@ namespace WinAppNET
 
         public void AddMessage(string message)
         {
-            if (this.listBox1.InvokeRequired)
+            if (this.flowLayoutPanel1.InvokeRequired)
             {
                 AddMessageCallback r = new AddMessageCallback(AddMessage);
                 this.Invoke(r, new object[] {message});
@@ -234,14 +245,26 @@ namespace WinAppNET
             {
                 WappMessage msg = new WappMessage(message, this.target);
                 this.messages.Add(msg);
+                this.limitMessages();
                 MessageStore.AddMessage(msg);
+                this.addChatMessage(msg);
                 this.ScrollToBottom();
+            }
+        }
+
+        private void addChatMessage(WappMessage message)
+        {
+            ListChat lc = new ListChat(message, this.Style);
+            this.flowLayoutPanel1.Controls.Add(lc);
+            while (this.flowLayoutPanel1.Controls.Count > 10)
+            {
+                this.flowLayoutPanel1.Controls.Remove(this.flowLayoutPanel1.Controls[0]);
             }
         }
 
         public void AddMessage(ProtocolTreeNode node)
         {
-            if (this.listBox1.InvokeRequired)
+            if (this.flowLayoutPanel1.InvokeRequired)
             {
                 AddMessageCallbackNode r = new AddMessageCallbackNode(AddMessage);
                 this.Invoke(r, new object[] { node });
@@ -250,8 +273,19 @@ namespace WinAppNET
             {
                 WappMessage msg = new WappMessage(node, this.target);
                 this.messages.Add(msg);
+                this.limitMessages();
                 MessageStore.AddMessage(msg);
+                this.addChatMessage(msg);
                 this.ScrollToBottom();
+            }
+        }
+
+        private void limitMessages()
+        {
+            int limit = 100;
+            while (this.messages.Count > limit)
+            {
+                this.messages.Remove(this.messages.First());
             }
         }
 
@@ -295,7 +329,8 @@ namespace WinAppNET
                 this.DoActivate();
             }
             this.stealFocus = false;//do not steal focus on incoming messages
-            this.ScrollToBottom();
+            this.flowLayoutPanel1.HorizontalScroll.Visible = false;
+            this.flowLayoutPanel1.VerticalScroll.Value = this.flowLayoutPanel1.VerticalScroll.Maximum;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

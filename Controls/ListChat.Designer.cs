@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.metroTile1 = new MetroFramework.Controls.MetroMessageTile();
             this.SuspendLayout();
             // 
-            // metroTextBox1
+            // metroTile1
             // 
-            this.metroTextBox1.BackColor = System.Drawing.Color.Maroon;
-            this.metroTextBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.metroTextBox1.Location = new System.Drawing.Point(8, 5);
-            this.metroTextBox1.MaxLength = 32767;
-            this.metroTextBox1.MinimumSize = new System.Drawing.Size(186, 21);
-            this.metroTextBox1.Multiline = true;
-            this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.PasswordChar = '\0';
-            this.metroTextBox1.ReadOnly = true;
-            this.metroTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.metroTextBox1.SelectedText = "";
-            this.metroTextBox1.Size = new System.Drawing.Size(186, 21);
-            this.metroTextBox1.TabIndex = 0;
-            this.metroTextBox1.Text = "metroTextBox1";
-            this.metroTextBox1.UseCustomBackColor = true;
-            this.metroTextBox1.UseCustomForeColor = true;
-            this.metroTextBox1.UseSelectable = true;
+            this.metroTile1.ActiveControl = null;
+            this.metroTile1.AutoSize = true;
+            this.metroTile1.BackColor = System.Drawing.Color.DarkRed;
+            this.metroTile1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.metroTile1.Location = new System.Drawing.Point(4, 2);
+            this.metroTile1.MinimumSize = new System.Drawing.Size(200, 0);
+            this.metroTile1.Name = "metroTile1";
+            this.metroTile1.PaintTileCount = false;
+            this.metroTile1.Size = new System.Drawing.Size(200, 23);
+            this.metroTile1.TabIndex = 0;
+            this.metroTile1.Text = "metroTile1";
+            this.metroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.metroTile1.TileCount = 2;
+            this.metroTile1.UseCustomBackColor = true;
+            this.metroTile1.UseSelectable = true;
             // 
             // ListChat
             // 
-            this.Controls.Add(this.metroTextBox1);
+            this.AutoSize = true;
+            this.Controls.Add(this.metroTile1);
             this.MaximumSize = new System.Drawing.Size(250, 0);
+            this.Name = "ListChat";
             this.Padding = new System.Windows.Forms.Padding(4, 2, 50, 2);
-            this.Size = new System.Drawing.Size(247, 31);
+            this.Size = new System.Drawing.Size(250, 27);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -64,7 +64,9 @@
 
         #endregion
 
-        public MetroFramework.Controls.MetroTextBox metroTextBox1;
+        public MetroFramework.Controls.MetroMessageTile metroTile1;
+
+
 
 
 
