@@ -38,10 +38,11 @@
             this.metroTile1.BackColor = System.Drawing.Color.DarkRed;
             this.metroTile1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTile1.Location = new System.Drawing.Point(4, 2);
-            this.metroTile1.MinimumSize = new System.Drawing.Size(200, 0);
+            this.metroTile1.MaximumSize = new System.Drawing.Size(180, 0);
+            this.metroTile1.MinimumSize = new System.Drawing.Size(180, 0);
             this.metroTile1.Name = "metroTile1";
             this.metroTile1.PaintTileCount = false;
-            this.metroTile1.Size = new System.Drawing.Size(200, 23);
+            this.metroTile1.Size = new System.Drawing.Size(180, 23);
             this.metroTile1.TabIndex = 0;
             this.metroTile1.Text = "metroTile1";
             this.metroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -56,7 +57,7 @@
             this.MaximumSize = new System.Drawing.Size(250, 0);
             this.Name = "ListChat";
             this.Padding = new System.Windows.Forms.Padding(4, 2, 50, 2);
-            this.Size = new System.Drawing.Size(250, 27);
+            this.Size = new System.Drawing.Size(234, 27);
             this.ResumeLayout(false);
             this.PerformLayout();
 
