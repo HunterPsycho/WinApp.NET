@@ -32,7 +32,7 @@ namespace WinAppNET
 
         void ProcessChat()
         {
-            this.Text = "Chat with " + ContactStore.GetContactByJid(this.target).ToString();
+            this.Text = ContactStore.GetContactByJid(this.target).FullName;
             WappSocket.Instance.WhatsSendHandler.SendQueryLastOnline(this.target);
             WappSocket.Instance.WhatsSendHandler.SendPresenceSubscriptionRequest(this.target);
 
