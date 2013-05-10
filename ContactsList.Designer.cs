@@ -50,6 +50,7 @@ namespace WinAppNET
             // tileNew
             // 
             this.tileNew.ActiveControl = null;
+            this.tileNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tileNew.Location = new System.Drawing.Point(219, 60);
             this.tileNew.Name = "tileNew";
             this.tileNew.Size = new System.Drawing.Size(58, 49);
@@ -63,6 +64,7 @@ namespace WinAppNET
             // tileGoogle
             // 
             this.tileGoogle.ActiveControl = null;
+            this.tileGoogle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tileGoogle.Location = new System.Drawing.Point(155, 60);
             this.tileGoogle.Name = "tileGoogle";
             this.tileGoogle.Size = new System.Drawing.Size(58, 49);
@@ -75,7 +77,11 @@ namespace WinAppNET
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 115);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 287);
@@ -91,6 +97,7 @@ namespace WinAppNET
             this.Controls.Add(this.tileNew);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(300, 425);
             this.Name = "ContactsList";
             this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Chats";
