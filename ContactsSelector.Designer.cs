@@ -36,6 +36,8 @@ namespace WinAppNET
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(13, 63);
             this.textBox1.MaxLength = 32767;
             this.textBox1.Name = "textBox1";
@@ -51,6 +53,9 @@ namespace WinAppNET
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 90);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -66,10 +71,12 @@ namespace WinAppNET
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(284, 424);
             this.Name = "ContactsSelector";
             this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Select a contact";
             this.ResumeLayout(false);
+
         }
 
         #endregion
