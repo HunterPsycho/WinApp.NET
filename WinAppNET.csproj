@@ -131,7 +131,7 @@
       <DependentUpon>ContactsSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListChat.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ListChat.Designer.cs">
       <DependentUpon>ListChat.cs</DependentUpon>

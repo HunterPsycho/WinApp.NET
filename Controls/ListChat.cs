@@ -24,7 +24,9 @@ namespace WinAppNET.Controls
             {
                 this.Padding = new Padding(50, this.Padding.Top, 4, this.Padding.Bottom);
             }
+            
             Font f = MetroFonts.Tile(this.metroTile1.TileTextFontSize, this.metroTile1.TileTextFontWeight);
+            int lineHeight = Int32.Parse(Math.Round((decimal)this.metroTile1.CreateGraphics().MeasureString("X", f).Height).ToString());
             SizeF sf = new SizeF();
             sf = this.metroTile1.CreateGraphics().MeasureString(msg.data, f, this.metroTile1.Width);
             this.metroTile1.Text = msg.data;
@@ -34,7 +36,7 @@ namespace WinAppNET.Controls
             
             if (lines > 0)
             {
-                this.Height += (lines * f.Height);
+                this.Height += (lines * lineHeight);
             }
         }
     }
