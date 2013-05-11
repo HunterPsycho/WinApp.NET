@@ -32,11 +32,11 @@ namespace WinAppNET.Controls
             this.metroTile1.Text = msg.data;
             int newHeight = (int)Math.Round(decimal.Parse(sf.Height.ToString()));
             int lines = newHeight / f.Height;
-            lines--;
+            //lines--;
             
             if (lines > 0)
             {
-                this.Height += (lines * lineHeight);
+                this.Height = (lines * this.Height);
             }
         }
     }
