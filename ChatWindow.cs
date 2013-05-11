@@ -141,6 +141,15 @@ namespace WinAppNET
 
         protected void ScrollToBottom()
         {
+            if (this.InvokeRequired)
+            {
+                ParentDelegate p = new ParentDelegate(ScrollToBottom);
+                this.Invoke(p);
+            }
+            else
+            {
+                this.flowLayoutPanel1.VerticalScroll.Value = this.flowLayoutPanel1.VerticalScroll.Maximum;
+            }
             //int visibleItems = this.listBox1.ClientSize.Height / this.listBox1.ItemHeight;
             //this.listBox1.TopIndex = Math.Max(this.listBox1.Items.Count - visibleItems + 1, 0);
         }
@@ -256,7 +265,7 @@ namespace WinAppNET
         {
             ListChat lc = new ListChat(message, this.Style);
             this.flowLayoutPanel1.Controls.Add(lc);
-            while (this.flowLayoutPanel1.Controls.Count > 10)
+            while (this.flowLayoutPanel1.Controls.Count > 30)
             {
                 this.flowLayoutPanel1.Controls.Remove(this.flowLayoutPanel1.Controls[0]);
             }
@@ -282,7 +291,7 @@ namespace WinAppNET
 
         private void limitMessages()
         {
-            int limit = 100;
+            int limit = 30;
             while (this.messages.Count > limit)
             {
                 this.messages.Remove(this.messages.First());
@@ -330,7 +339,7 @@ namespace WinAppNET
             }
             this.stealFocus = false;//do not steal focus on incoming messages
             this.flowLayoutPanel1.HorizontalScroll.Visible = false;
-            this.flowLayoutPanel1.VerticalScroll.Value = this.flowLayoutPanel1.VerticalScroll.Maximum;
+            this.ScrollToBottom();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
