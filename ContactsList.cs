@@ -14,6 +14,8 @@ using System.IO;
 using WhatsAppApi.Helper;
 using MetroFramework.Forms;
 using WinAppNET.Controls;
+using WinAppNET.Dialogs;
+using System.Configuration;
 
 namespace WinAppNET
 {
@@ -416,7 +418,43 @@ namespace WinAppNET
 
             if (string.IsNullOrEmpty(this.username) || string.IsNullOrEmpty(this.password))
             {
-                throw new Exception("Please enter credentials!");
+                bool validCredentials = false;
+                do
+                {
+                    //throw new Exception("Please enter credentials!");
+                    WappCredentials creds = new WappCredentials();
+                    DialogResult r = creds.ShowDialog();
+                    if (r != System.Windows.Forms.DialogResult.OK)
+                    {
+                        //cancelled, close application
+                        Application.Exit();
+                        return;
+                    }
+                    this.username = System.Configuration.ConfigurationManager.AppSettings.Get("Username");
+                    this.password = System.Configuration.ConfigurationManager.AppSettings.Get("Password");
+                    if (!string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password))
+                    {
+                        WappSocket.Create(username, password, "WinApp.NET", true);
+                        WappSocket.Instance.Connect();
+                        WappSocket.Instance.Login();
+                        if (WappSocket.Instance.ConnectionStatus == WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN)
+                        {
+                            validCredentials = true;
+                            //write to config
+                            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                            AppSettingsSection app = config.AppSettings;
+                            app.Settings.Remove("Username");
+                            app.Settings.Add("Username", this.username);
+                            app.Settings.Remove("Password");
+                            app.Settings.Add("Password", this.password);
+                            config.Save(ConfigurationSaveMode.Modified);
+                        }
+                        else
+                        {
+                            WappSocket.Instance.Disconnect();
+                        }
+                    }
+                } while (!validCredentials);
             }
             ContactStore.CheckTable();
             MessageStore.CheckTable();
