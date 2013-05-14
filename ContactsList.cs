@@ -26,6 +26,25 @@ namespace WinAppNET
         protected string username;
         protected string password;
 
+        private string GetPassword()
+        {
+            string pass = System.Configuration.ConfigurationManager.AppSettings.Get("Password");
+            try
+            {
+                byte[] foo = Convert.FromBase64String(pass);
+                return pass;
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
+        }
+
+        private string getUsername()
+        {
+            return System.Configuration.ConfigurationManager.AppSettings.Get("Username");
+        }
+
         public ContactsList()
         {
             InitializeComponent();
@@ -413,8 +432,8 @@ namespace WinAppNET
         private void ContactsList_Load(object sender, EventArgs e)
         {
             string nickname = "WhatsAPINet";
-            this.username = System.Configuration.ConfigurationManager.AppSettings.Get("Username");
-            this.password = System.Configuration.ConfigurationManager.AppSettings.Get("Password");
+            this.username = this.getUsername();
+            this.password = this.GetPassword();
 
             if (string.IsNullOrEmpty(this.username) || string.IsNullOrEmpty(this.password))
             {
@@ -430,8 +449,8 @@ namespace WinAppNET
                         Application.Exit();
                         return;
                     }
-                    this.username = System.Configuration.ConfigurationManager.AppSettings.Get("Username");
-                    this.password = System.Configuration.ConfigurationManager.AppSettings.Get("Password");
+                    this.username = this.getUsername();
+                    this.password = this.GetPassword();
                     if (!string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password))
                     {
                         WappSocket.Create(username, password, "WinApp.NET", true);
