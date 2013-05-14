@@ -71,7 +71,6 @@ namespace WinAppNET
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.textBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(284, 424);
             this.Name = "ContactsSelector";
             this.Style = MetroFramework.MetroColorStyle.Red;
