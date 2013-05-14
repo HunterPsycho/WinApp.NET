@@ -18,6 +18,8 @@ namespace WinAppNET
 {
     public partial class ChatWindow : MetroForm
     {
+        const int MESSAGE_LIMIT = 100;
+
         protected List<WappMessage> messages = new List<WappMessage>();
         public string target;
         ClientState state = ClientState.ONLINE;
@@ -99,6 +101,7 @@ namespace WinAppNET
 
             this.lblNick.Text = con.nickname;
             this.lblUserStatus.Text = con.status;
+            this.SetUnavailable();
 
             if (this.IsGroup)
                 this.ProcessGroupChat();
@@ -106,12 +109,10 @@ namespace WinAppNET
                 this.ProcessChat();
 
             WappMessage[] oldmessages = MessageStore.GetAllMessagesForContact(target);
-            foreach (WappMessage msg in oldmessages)
-            {
-                this.messages.Add(msg);
-            }
+            this.messages.AddRange(oldmessages);
+
             this.limitMessages();
-            this.redraw();
+            //this.redraw();
         }
 
         private void redraw()
@@ -135,6 +136,7 @@ namespace WinAppNET
             }
             else
             {
+                this.Show();
                 FlashWindow(this.Handle, true);
             }
         }
@@ -265,7 +267,7 @@ namespace WinAppNET
         {
             ListChat lc = new ListChat(message, this.Style);
             this.flowLayoutPanel1.Controls.Add(lc);
-            while (this.flowLayoutPanel1.Controls.Count > 30)
+            while (this.flowLayoutPanel1.Controls.Count > MESSAGE_LIMIT)
             {
                 this.flowLayoutPanel1.Controls.Remove(this.flowLayoutPanel1.Controls[0]);
             }
@@ -291,8 +293,7 @@ namespace WinAppNET
 
         private void limitMessages()
         {
-            int limit = 30;
-            while (this.messages.Count > limit)
+            while (this.messages.Count > MESSAGE_LIMIT)
             {
                 this.messages.Remove(this.messages.First());
             }
@@ -339,6 +340,10 @@ namespace WinAppNET
             }
             this.stealFocus = false;//do not steal focus on incoming messages
             this.flowLayoutPanel1.HorizontalScroll.Visible = false;
+            //Thread fill = new Thread(new ParameterizedThreadStart(redraw));
+            //fill.IsBackground = true;
+            //fill.Start();
+            this.redraw();
             this.ScrollToBottom();
         }
 
