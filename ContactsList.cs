@@ -114,30 +114,29 @@ namespace WinAppNET
             ListContact c = sender as ListContact;
             if (c != null)
             {
-                Thread chat = new Thread(new ParameterizedThreadStart(OpenConversationWithFocus));
-                chat.Start(c.contact.jid);
+                this.OpenConversationThread(c.contact.jid, true, true);
             }
         }
 
         public void OpenConversation(object jid)
         {
-            this._openConversation(jid, false);
+            Helper.ChatWindowParameters cwp = jid as Helper.ChatWindowParameters;
+            this._openConversation(cwp.jid, cwp.stealFocus, cwp.onTop);
         }
 
-        public void OpenConversationWithFocus(object jid)
-        {
-            this._openConversation(jid, true);
-        }
-
-        protected void _openConversation(object jid, bool stealFocus)
+        protected void _openConversation(object jid, bool stealFocus, bool onTop)
         {
             if (!this.ChatWindows.ContainsKey(jid.ToString()))
             {
-                this.ChatWindows.Add(jid.ToString(), new ChatWindow(jid.ToString(), stealFocus));//create
+                ChatWindow c = new ChatWindow(jid.ToString(), stealFocus, onTop);
+                c.TopMost = false;
+                this.ChatWindows.Add(jid.ToString(), c);//create
             }
             else if (this.ChatWindows[jid.ToString()].IsDisposed)
             {
-                this.ChatWindows[jid.ToString()] = new ChatWindow(jid.ToString(), stealFocus);//renew
+                ChatWindow c = new ChatWindow(jid.ToString(), stealFocus, onTop);
+                c.TopMost = false;
+                this.ChatWindows[jid.ToString()] = c;//renew
             }
             else
             {
@@ -154,21 +153,14 @@ namespace WinAppNET
             }
         }
 
-        public void OpenConversationThread(string jid, bool stealFocus)
+        public void OpenConversationThread(string jid, bool stealFocus, bool onTop)
         {
+            Helper.ChatWindowParameters cwp = new Helper.ChatWindowParameters(jid, stealFocus, onTop);
             try
             {
-                Thread t;
-                if (stealFocus)
-                {
-                    t = new Thread(new ParameterizedThreadStart(OpenConversationWithFocus));
-                }
-                else
-                {
-                    t = new Thread(new ParameterizedThreadStart(OpenConversation));
-                }
+                Thread t = new Thread(new ParameterizedThreadStart(OpenConversation));
                 t.IsBackground = true;
-                t.Start(jid);
+                t.Start(cwp);
             }
             catch (Exception e)
             {
@@ -176,11 +168,11 @@ namespace WinAppNET
             }
         }
 
-        protected ChatWindow getChat(string jid, bool forceOpen)
+        protected ChatWindow getChat(string jid, bool forceOpen, bool onTop)
         {
             if (forceOpen)
             {
-                this.OpenConversationThread(jid, forceOpen);
+                this.OpenConversationThread(jid, forceOpen, onTop);
             }
 
             if (this.ChatWindows.ContainsKey(jid) && !this.ChatWindows[jid].IsDisposed)
@@ -191,7 +183,7 @@ namespace WinAppNET
             while (forceOpen)
             {
                 Thread.Sleep(100);
-                if (this.ChatWindows.ContainsKey(jid) && !this.ChatWindows[jid].IsDisposed)
+                if (this.ChatWindows.ContainsKey(jid) && this.ChatWindows[jid].IsLoaded)
                 {
                     return this.ChatWindows[jid];
                 }
@@ -226,7 +218,7 @@ namespace WinAppNET
 
                         try
                         {
-                            getChat(jid, true).AddMessage(node);
+                            getChat(jid, true, false).AddMessage(node);
                         }
                         catch (Exception ex)
                         { }
@@ -235,7 +227,7 @@ namespace WinAppNET
                     {
                         try
                         {
-                            getChat(jid, false).SetOnline();
+                            getChat(jid, false, false).SetOnline();
                         }
                         catch (Exception e) { }
                     }
@@ -243,7 +235,7 @@ namespace WinAppNET
                     {
                         try
                         {
-                            getChat(jid, false).SetTyping();
+                            getChat(jid, false, false).SetTyping();
                         }
                         catch (Exception e) { }
                     }
@@ -255,7 +247,7 @@ namespace WinAppNET
                     {
                         try
                         {
-                            getChat(jid, false).SetOnline();
+                            getChat(jid, false, false).SetOnline();
                         }
                         catch (Exception e) { }
                     }
@@ -263,7 +255,7 @@ namespace WinAppNET
                     {
                         try
                         {
-                            getChat(jid, false).SetUnavailable();
+                            getChat(jid, false, false).SetUnavailable();
                         }
                         catch (Exception e) { }
                     }
@@ -279,7 +271,7 @@ namespace WinAppNET
                         lastseen = lastseen.Subtract(new TimeSpan(0, 0, seconds));
                         try
                         {
-                            getChat(jid, false).SetLastSeen(lastseen);
+                            getChat(jid, false, false).SetLastSeen(lastseen);
                         }
                         catch (Exception e)
                         {
@@ -323,7 +315,7 @@ namespace WinAppNET
                                     Directory.CreateDirectory(targetdir);
                                 }
                                 img.Save(targetdir + "\\" + c.jid + ".jpg");
-                                this.getChat(pjid, false).SetPicture(img);
+                                this.getChat(pjid, false, false).SetPicture(img);
                             }
                             catch (Exception e)
                             {
@@ -508,7 +500,7 @@ namespace WinAppNET
             DialogResult res = selector.ShowDialog();
             if (res == DialogResult.OK)
             {
-                this.OpenConversationThread(selector.SelectedJID, true);
+                this.OpenConversationThread(selector.SelectedJID, true, true);
             }
             selector.Dispose();
         }

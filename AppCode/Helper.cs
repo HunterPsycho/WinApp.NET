@@ -9,6 +9,19 @@ namespace WinAppNET.AppCode
 {
     class Helper
     {
+        public class ChatWindowParameters
+        {
+            public string jid;
+            public bool stealFocus;
+            public bool onTop;
+            public ChatWindowParameters(string jid, bool stealFocus, bool onTop)
+            {
+                this.jid = jid;
+                this.stealFocus = stealFocus;
+                this.onTop = onTop;
+            }
+        }
+
         public static void CreateFolderTree()
         {
             string targetdir = Directory.GetCurrentDirectory() + "\\data";

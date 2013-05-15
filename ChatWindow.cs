@@ -13,6 +13,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using MetroFramework.Forms;
 using WinAppNET.Controls;
+using System.Media;
 
 namespace WinAppNET
 {
@@ -25,6 +26,9 @@ namespace WinAppNET
         ClientState state = ClientState.ONLINE;
         public bool IsGroup = false;
         public bool stealFocus = false;
+        private SoundPlayer sp;
+        public Boolean IsLoaded = false;
+        public bool onTop;
 
         enum ClientState
         {
@@ -75,9 +79,11 @@ namespace WinAppNET
             WappSocket.Instance.WhatsSendHandler.SendGetGroupInfo(this.target);
         }
 
-        public ChatWindow(string target, bool stealFocus)
+        public ChatWindow(string target, bool stealFocus, bool onTop)
         {
             this.stealFocus = stealFocus;
+            this.onTop = onTop;
+            this.TopMost = onTop;
             if (stealFocus)
             {
                 this.WindowState = FormWindowState.Normal;
@@ -90,6 +96,18 @@ namespace WinAppNET
                 this.IsGroup = true;
             this.target = target;
             InitializeComponent();
+
+            try
+            {
+                string path = Directory.GetCurrentDirectory() + "\\notify.wav";
+                path = new System.IO.FileInfo(path).FullName;
+                this.sp = new SoundPlayer(path);
+                this.sp.Load();
+            }
+            catch (Exception e)
+            {
+                this.sp = null;
+            }
 
             Contact con = ContactStore.GetContactByJid(target);
 
@@ -136,7 +154,13 @@ namespace WinAppNET
             }
             else
             {
-                this.Show();
+                //this.Show();
+                bool focused = (this == Form.ActiveForm);
+
+                if (this.sp != null && this.sp.IsLoadCompleted && !focused)
+                { 
+                    this.sp.Play(); 
+                }
                 FlashWindow(this.Handle, true);
             }
         }
@@ -334,9 +358,14 @@ namespace WinAppNET
         private void ChatWindow_Load(object sender, EventArgs e)
         {
             this.textBox1.Focus();
-            if (!this.stealFocus)
+            if (!this.stealFocus || !this.onTop)
             {
                 this.DoActivate();
+                //this.WindowState = FormWindowState.Minimized;
+            }
+            if (this.stealFocus)
+            {
+                this.Activate();
             }
             this.stealFocus = false;//do not steal focus on incoming messages
             this.flowLayoutPanel1.HorizontalScroll.Visible = false;
@@ -345,6 +374,7 @@ namespace WinAppNET
             //fill.Start();
             this.redraw();
             this.ScrollToBottom();
+            this.IsLoaded = true;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -358,7 +388,7 @@ namespace WinAppNET
         {
             get
             {
-                return !this.stealFocus;
+                return false;
             }
         }
     }
