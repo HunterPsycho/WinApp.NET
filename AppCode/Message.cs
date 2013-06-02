@@ -12,6 +12,7 @@ namespace WinAppNET.AppCode
         public String data;
         public bool from_me;
         public string jid;
+        public string author = null;
         public DateTime timestamp;
 
         public WappMessage(string message, string jid)

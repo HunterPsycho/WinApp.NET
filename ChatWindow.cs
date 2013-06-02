@@ -306,7 +306,13 @@ namespace WinAppNET
             }
             else
             {
+                string author = String.Empty;
                 WappMessage msg = new WappMessage(node, this.target);
+                if (this.IsGroup)
+                {
+                    //extract author
+                    msg.author = node.GetAttribute("author");
+                }
                 this.messages.Add(msg);
                 this.limitMessages();
                 MessageStore.AddMessage(msg);

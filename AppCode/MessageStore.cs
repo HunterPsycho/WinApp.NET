@@ -23,6 +23,7 @@ namespace WinAppNET.AppCode
 'Messages' (
 'id' INTEGER PRIMARY KEY,
 'jid' VARCHAR(64),
+'author' VARCHAR(64),
 'from_me' INTEGER,
 'read' INTEGER,
 'data' TEXT,
@@ -49,10 +50,15 @@ namespace WinAppNET.AppCode
                 while (reader.Read())
                 {
                     int id = Int32.Parse(reader["id"].ToString());
+                    string author = (string)reader["author"];
                     bool from_me = (Int32.Parse(reader["from_me"].ToString()) == 1 ? true : false);
                     string data = (string)reader["data"];
                     DateTime timestamp = DateTime.Parse(reader["timestamp"].ToString());
                     WappMessage message = new WappMessage(id, data, from_me, jid, timestamp);
+                    if (!String.IsNullOrEmpty(author))
+                    {
+                        message.author = author;
+                    }
                     messages.Add(message);
                 }
             }
@@ -72,12 +78,14 @@ namespace WinAppNET.AppCode
 'Messages' 
 (
 'jid',
+'author',
 'from_me',
 'data',
 'timestamp'
 )
 VALUES (
 '" + message.jid + @"',
+'" + message.author + @"',
 '" + (message.from_me ? "1" : "0") + @"',
 @data,
 '" + message.timestamp.ToString() + @"'
