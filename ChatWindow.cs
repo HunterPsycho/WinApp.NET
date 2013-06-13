@@ -411,7 +411,7 @@ namespace WinAppNET
             }
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void MediaPick()
         {
             OpenFileDialog dial = new OpenFileDialog();
             if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -422,14 +422,40 @@ namespace WinAppNET
                     filename = this.copyFileLocal(filename);
                     WappSocket.Instance.MessageImage(this.target, filename);
                     this.AddMessage(filename, "image");
-                    this.textBox1.Clear();
+                    this.ClearTextbox();
                 }
             }
         }
 
+        delegate void ClearTextboxDelegate();
+        private void ClearTextbox()
+        {
+            if (this.textBox1.InvokeRequired)
+            {
+                ClearTextboxDelegate d = new ClearTextboxDelegate(ClearTextbox);
+                this.Invoke(d);
+            }
+            else
+            {
+                this.textBox1.Clear();
+            }
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(new ThreadStart(MediaPick));
+            t.SetApartmentState(ApartmentState.STA);
+            t.IsBackground = true;
+            t.Start();
+        }
+
         private string copyFileLocal(string filename)
         {
-            string dst = Directory.GetCurrentDirectory() + "\\media\\" + filename.Split('\\').Last();
+            string dst = Directory.GetCurrentDirectory() + "\\data\\media\\" + filename.Split('\\').Last();
+            if (File.Exists(dst))
+            {
+                File.Delete(dst);
+            }
             File.Copy(filename, dst);
             return dst;
         }
