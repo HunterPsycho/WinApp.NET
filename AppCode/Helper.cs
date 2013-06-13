@@ -39,6 +39,11 @@ namespace WinAppNET.AppCode
             {
                 Directory.CreateDirectory(foo);
             }
+            foo = targetdir + "\\media";
+            if (!Directory.Exists(foo))
+            {
+                Directory.CreateDirectory(foo);
+            }
         }
 
         public static Color GetMetroThemeColor(MetroFramework.MetroColorStyle style)
