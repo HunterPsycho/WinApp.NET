@@ -25,6 +25,9 @@ namespace WinAppNET
         public Dictionary<string, ChatWindow> ChatWindows = new Dictionary<string, ChatWindow>();
         protected string username;
         protected string password;
+        private static List<string> picturesToSync = new List<string>();
+        private static string SyncID;
+        private static Thread WAlistener;
 
         private string GetPassword()
         {
@@ -106,6 +109,10 @@ namespace WinAppNET
         protected void SyncWaContactsAsync()
         {
             ContactStore.SyncWaContacts(this.username, this.password);
+            //resync pictures
+            picturesToSync = this.refreshContactPictures();
+            this.requestProfilePicture();
+
             this._loadConversations();
         }
 
@@ -149,7 +156,7 @@ namespace WinAppNET
             }
             catch (Exception e)
             {
-
+                throw e;
             }
         }
 
@@ -164,7 +171,7 @@ namespace WinAppNET
             }
             catch (Exception e)
             {
-
+                throw e;
             }
         }
 
@@ -191,9 +198,8 @@ namespace WinAppNET
             return null;
         }
 
-        protected bool ProcessMessages(ProtocolTreeNode[] nodes, string syncID)
+        protected void ProcessMessages(ProtocolTreeNode[] nodes)
         {
-            bool synced = false;
             foreach (ProtocolTreeNode node in nodes)
             {
                 if (node.tag.Equals("message"))
@@ -201,6 +207,7 @@ namespace WinAppNET
                     ProtocolTreeNode body = node.GetChild("body");
                     ProtocolTreeNode paused = node.GetChild("paused");
                     ProtocolTreeNode composing = node.GetChild("composing");
+                    ProtocolTreeNode notification = node.GetChild("notification");
                     string jid = node.GetAttribute("from");
                     if (body != null)
                     {
@@ -218,26 +225,41 @@ namespace WinAppNET
 
                         try
                         {
-                            getChat(jid, true, false).AddMessage(node);
+                            this.getChat(jid, true, false).AddMessage(node);
                         }
                         catch (Exception ex)
-                        { }
+                        {
+                            throw ex;
+                        }
                     }
                     if (paused != null)
                     {
                         try
                         {
-                            getChat(jid, false, false).SetOnline();
+                            this.getChat(jid, false, false).SetOnline();
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) 
+                        {
+                            throw e;
+                        }
                     }
                     if (composing != null)
                     {
                         try
                         {
-                            getChat(jid, false, false).SetTyping();
+                            this.getChat(jid, false, false).SetTyping();
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) 
+                        {
+                            throw e;
+                        }
+                    }
+                    if (notification != null)
+                    {
+                        if (notification.GetAttribute("type") == "picture")
+                        {
+                            ChatWindow.GetImageAsync(notification.GetChild("set").GetAttribute("jid"), false);
+                        }
                     }
                 }
                 else if (node.tag.Equals("presence"))
@@ -247,17 +269,26 @@ namespace WinAppNET
                     {
                         try
                         {
-                            getChat(jid, false, false).SetOnline();
+                            if (this.getChat(jid, false, false) != null)
+                            {
+                                this.getChat(jid, false, false).SetOnline();
+                            }
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) 
+                        {
+                            throw e;
+                        }
                     }
                     if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("unavailable"))
                     {
                         try
                         {
-                            getChat(jid, false, false).SetUnavailable();
+                            this.getChat(jid, false, false).SetUnavailable();
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) 
+                        {
+                            throw e;
+                        }
                     }
                 }
                 else if (node.tag.Equals("iq"))
@@ -275,7 +306,7 @@ namespace WinAppNET
                         }
                         catch (Exception e)
                         {
-
+                            throw e;
                         }
                     }
                     else if (node.children.First().tag.Equals("group"))
@@ -296,10 +327,6 @@ namespace WinAppNET
                     {
                         string pjid = node.GetAttribute("from");
                         string id = node.GetAttribute("id");
-                        if (id == syncID)
-                        {
-                            synced = true;
-                        }
                         byte[] rawpicture = node.GetChild("picture").GetData();
                         Contact c = ContactStore.GetContactByJid(pjid);
 
@@ -315,25 +342,34 @@ namespace WinAppNET
                                     Directory.CreateDirectory(targetdir);
                                 }
                                 img.Save(targetdir + "\\" + c.jid + ".jpg");
-                                this.getChat(pjid, false, false).SetPicture(img);
+                                try
+                                {
+                                    if (this.getChat(pjid, false, false) != null)
+                                    {
+                                        this.getChat(pjid, false, false).SetPicture(img);
+                                    }
+                                }
+                                catch (Exception e) {
+                                    throw e;
+                                }
                             }
                             catch (Exception e)
                             {
-
+                                throw e;
                             }
                         }
+                        picturesToSync.Remove(pjid);
+                        this.requestProfilePicture();
+                        
                     }
                     else if (node.children.First().tag.Equals("error") && node.children.First().GetAttribute("code") == "404")
                     {
-                        string id = node.GetAttribute("id");
-                        if (id == syncID)
-                        {
-                            synced = true;
-                        }
+                        string pjid = node.GetAttribute("from");
+                        picturesToSync.Remove(pjid);
+                        this.requestProfilePicture();
                     }
                 }
             }
-            return synced;
         }
 
         private void KeepAlive()
@@ -345,64 +381,27 @@ namespace WinAppNET
             }
         }
 
-        protected void Listen(object foo)
+        protected void Listen()
         {
-            List<string> toSync = foo as List<string>;
-            string sync = string.Empty;
-            string syncID = string.Empty;
-            if (toSync.Count > 0)
-            {
-                sync = toSync.First();
-                syncID = ChatWindow.GetImageAsync(sync);
-                toSync.Remove(sync);
-            }
-            
             while (true)
             {
                 try
                 {
-                    if (!WappSocket.Instance.HasMessages())
-                    {
-                        try
-                        {
-                            WappSocket.Instance.PollMessages();
-                        }
-                        catch (Exception ex)
-                        {
-                            if (ex.GetType().Name == "ConnectionException")
-                            {
-                                //throw new Exception("Socket timed out. Reconnect please. (TO BE IMPLEMENTED)");
-                                WappSocket.Instance.Disconnect();
-                                WappSocket.Instance.Connect();
-                                WappSocket.Instance.Login();
-                            }
-                        }
-                        Thread.Sleep(100);
-                    }
-                    else
-                    {
-                        ProtocolTreeNode[] nodes = WappSocket.Instance.GetAllMessages();
-                        if (this.ProcessMessages(nodes, syncID))
-                        {
-                            if (toSync.Count > 0)
-                            {
-                                //sync next
-                                sync = toSync.First();
-                                toSync.Remove(sync);
-                                syncID = ChatWindow.GetImageAsync(sync);
-                            }
-                            else
-                            {
-                                sync = string.Empty;
-                                syncID = string.Empty;
-                            }
-                        }
-                    }
+                    WappSocket.Instance.PollMessages();
+                    ProtocolTreeNode[] nodes = WappSocket.Instance.GetAllMessages();
+                    this.ProcessMessages(nodes);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    break;
+                    WappSocket.Instance.ClearIncomplete();
+                    //throw new Exception("Socket timed out. Reconnect please. (TO BE IMPLEMENTED)");
+                    WappSocket.Instance.Disconnect();
+                    WappSocket.Instance.Connect();
+                    WappSocket.Instance.Login();
+                    //retry
+                    this.requestProfilePicture();
                 }
+                Thread.Sleep(500);
             }
         }
 
@@ -445,7 +444,7 @@ namespace WinAppNET
                     this.password = this.GetPassword();
                     if (!string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password))
                     {
-                        WappSocket.Create(username, password, "WinApp.NET", true);
+                        WappSocket.Create(username, password, "WinApp.NET", false);
                         WappSocket.Instance.Connect();
                         WappSocket.Instance.Login();
                         if (WappSocket.Instance.ConnectionStatus == WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN)
@@ -470,20 +469,19 @@ namespace WinAppNET
             ContactStore.CheckTable();
             MessageStore.CheckTable();
 
-
-            Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
-            t.IsBackground = true;
-            t.Start();
-
             WappSocket.Create(this.username, this.password, nickname, true);
             WappSocket.Instance.Connect();
             WappSocket.Instance.Login();
             WappSocket.Instance.sendNickname(nickname);
 
-            List<string> toSync = this.refreshContactPictures();
-            Thread listener = new Thread(new ParameterizedThreadStart(Listen));
-            listener.IsBackground = true;
-            listener.Start(toSync);
+            WAlistener = new Thread(new ThreadStart(Listen));
+            WAlistener.IsBackground = true;
+            WAlistener.Start();
+
+            //this.SyncWaContactsAsync();
+            Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
+            t.IsBackground = true;
+            t.Start();
 
             Thread alive = new Thread(new ThreadStart(KeepAlive));
             alive.IsBackground = true;
@@ -491,6 +489,15 @@ namespace WinAppNET
 
             int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
             this.flowLayoutPanel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
+        }
+
+        private void requestProfilePicture()
+        {
+            if (picturesToSync.Count > 0)
+            {
+                string jid = picturesToSync.First();
+                ChatWindow.GetImageAsync(jid, false);
+            }
         }
 
         private void tileNew_Click(object sender, EventArgs e)
@@ -515,6 +522,9 @@ namespace WinAppNET
             this.contacts.Clear();
             this.label1.Text = "Updating contacts...";
             this.label1.Show();
+
+            //picturesToSync = this.refreshContactPictures();
+            //this.requestProfilePicture();
 
             Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
             t.IsBackground = true;
