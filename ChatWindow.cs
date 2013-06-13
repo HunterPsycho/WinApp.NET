@@ -53,13 +53,13 @@ namespace WinAppNET
                 }
                 catch (Exception ex)
                 {
-                    GetImageAsync(this.target);
+                    GetImageAsync(this.target, false);
                 }
 
             }
             else
             {
-                GetImageAsync(this.target);
+                GetImageAsync(this.target, false);
             }
         }
 
@@ -68,9 +68,9 @@ namespace WinAppNET
             return Directory.GetCurrentDirectory() + "\\data\\profilecache\\" + target + ".jpg";
         }
 
-        public static string GetImageAsync(string jid)
+        public static string GetImageAsync(string jid, bool large)
         {
-            return WappSocket.Instance.WhatsSendHandler.SendGetPhoto(jid, false);
+            return WappSocket.Instance.WhatsSendHandler.SendGetPhoto(jid, large);
         }
 
         void ProcessGroupChat()
@@ -198,7 +198,7 @@ namespace WinAppNET
         }
 
         delegate void AddMessageCallback(string data);
-
+        delegate void AddMessageMediaCallback(string data, string type);
         delegate void AddMessageCallbackNode(ProtocolTreeNode node);
         delegate void SetOnlineCallback();
         delegate void SetLastSeenCallback(DateTime time);
@@ -285,6 +285,19 @@ namespace WinAppNET
                 this.addChatMessage(msg);
                 this.ScrollToBottom();
             }
+        }
+
+        public void AddMessage(string data, string type)
+        {
+            //if (this.flowLayoutPanel1.InvokeRequired)
+            //{
+            //    AddMessageMediaCallback call = new AddMessageMediaCallback(data, type);
+            //    this.Invoke(call, 
+            //}
+            //else
+            //{
+
+            //}
         }
 
         private void addChatMessage(WappMessage message)
@@ -387,7 +400,7 @@ namespace WinAppNET
         {
             //redownload image
             this.pictureBox1.Image.Dispose();
-            GetImageAsync(this.target);
+            GetImageAsync(this.target, false);
         }
 
         protected override bool ShowWithoutActivation
@@ -396,6 +409,29 @@ namespace WinAppNET
             {
                 return false;
             }
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dial = new OpenFileDialog();
+            if (dial.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filename = dial.FileName;
+                if (File.Exists(filename))
+                {
+                    filename = this.copyFileLocal(filename);
+                    WappSocket.Instance.MessageImage(this.target, filename);
+                    this.AddMessage(filename, "image");
+                    this.textBox1.Clear();
+                }
+            }
+        }
+
+        private string copyFileLocal(string filename)
+        {
+            string dst = Directory.GetCurrentDirectory() + "\\media\\" + filename.Split('\\').Last();
+            File.Copy(filename, dst);
+            return dst;
         }
     }
 }

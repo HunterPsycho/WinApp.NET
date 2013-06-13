@@ -37,6 +37,7 @@ namespace WinAppNET
             this.lblUserStatus = new MetroFramework.Controls.MetroLabel();
             this.lblNick = new MetroFramework.Controls.MetroLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +51,7 @@ namespace WinAppNET
             this.textBox1.PasswordChar = '\0';
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.textBox1.SelectedText = "";
-            this.textBox1.Size = new System.Drawing.Size(188, 20);
+            this.textBox1.Size = new System.Drawing.Size(144, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.UseSelectable = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -59,7 +60,7 @@ namespace WinAppNET
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(217, 418);
+            this.button1.Location = new System.Drawing.Point(173, 418);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -117,12 +118,23 @@ namespace WinAppNET
             this.flowLayoutPanel1.Size = new System.Drawing.Size(267, 247);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
+            // metroButton1
+            // 
+            this.metroButton1.Location = new System.Drawing.Point(255, 418);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(36, 23);
+            this.metroButton1.TabIndex = 9;
+            this.metroButton1.Text = "Img";
+            this.metroButton1.UseSelectable = true;
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            // 
             // ChatWindow
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 460);
+            this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblNick);
             this.Controls.Add(this.lblUserStatus);
@@ -151,6 +163,7 @@ namespace WinAppNET
         private MetroLabel lblUserStatus;
         private MetroLabel lblNick;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private MetroButton metroButton1;
     }
 }
 
