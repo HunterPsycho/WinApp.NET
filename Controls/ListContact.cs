@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WinAppNET.AppCode;
 using MetroFramework.Controls;
+using System.IO;
 
 namespace WinAppNET.Controls
 {
@@ -26,16 +27,19 @@ namespace WinAppNET.Controls
             {
                 this.lblName.Text = this.contact.FullName;
                 string imgpath = ChatWindow.getCacheImagePath(jid);
-                try
+                if (File.Exists(imgpath))
                 {
-                    Image i = Image.FromFile(imgpath);
-                    Bitmap b = new Bitmap(i, new Size(48, 48));
-                    this.pictureBox1.Image = b;
-                    i.Dispose();
-                }
-                catch (Exception e)
-                {
-
+                    try
+                    {
+                        Image i = Image.FromFile(imgpath);
+                        Bitmap b = new Bitmap(i, new Size(48, 48));
+                        this.pictureBox1.Image = b;
+                        i.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
                 }
             }
         }
