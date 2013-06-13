@@ -229,29 +229,35 @@ namespace WinAppNET
                         }
                         catch (Exception ex)
                         {
-                            throw ex;
+                            //throw ex;
                         }
                     }
                     if (paused != null)
                     {
                         try
                         {
-                            this.getChat(jid, false, false).SetOnline();
+                            if (this.getChat(jid, false, false) != null)
+                            {
+                                this.getChat(jid, false, false).SetOnline();
+                            }
                         }
                         catch (Exception e) 
                         {
-                            throw e;
+                            //throw e;
                         }
                     }
                     if (composing != null)
                     {
                         try
                         {
-                            this.getChat(jid, false, false).SetTyping();
+                            if (this.getChat(jid, false, false) != null)
+                            {
+                                this.getChat(jid, false, false).SetTyping();
+                            }
                         }
                         catch (Exception e) 
                         {
-                            throw e;
+                            //throw e;
                         }
                     }
                     if (notification != null)
@@ -276,18 +282,21 @@ namespace WinAppNET
                         }
                         catch (Exception e) 
                         {
-                            throw e;
+                            //throw e;
                         }
                     }
                     if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("unavailable"))
                     {
                         try
                         {
-                            this.getChat(jid, false, false).SetUnavailable();
+                            if (this.getChat(jid, false, false) != null)
+                            {
+                                this.getChat(jid, false, false).SetUnavailable();
+                            }
                         }
                         catch (Exception e) 
                         {
-                            throw e;
+                            //throw e;
                         }
                     }
                 }
@@ -302,11 +311,14 @@ namespace WinAppNET
                         lastseen = lastseen.Subtract(new TimeSpan(0, 0, seconds));
                         try
                         {
-                            getChat(jid, false, false).SetLastSeen(lastseen);
+                            if (this.getChat(jid, false, false) != null)
+                            {
+                                getChat(jid, false, false).SetLastSeen(lastseen);
+                            }
                         }
                         catch (Exception e)
                         {
-                            throw e;
+                            //throw e;
                         }
                     }
                     else if (node.children.First().tag.Equals("group"))
