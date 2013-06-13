@@ -124,7 +124,7 @@ namespace WinAppNET.Dialogs
             {
                 feed = GContactService.Query(query);
             }
-            catch (InvalidCredentialsException exe)
+            catch (Exception exe)
             {
                 this.setLabelText("Invalid email or password", Color.Red);
                 return;
@@ -156,9 +156,9 @@ namespace WinAppNET.Dialogs
                                 PhoneNumbers.PhoneNumber num = util.Parse(number.Value, "NL");
                                 numb = num.CountryCode.ToString() + num.NationalNumber.ToString();
                             }
-                            catch (PhoneNumbers.NumberParseException ex)
+                            catch (Exception ex)
                             {
-                                Console.WriteLine("NumberParseException was thrown: " + ex.Message);
+                                Console.WriteLine("Exception was thrown: " + ex.Message);
                                 continue;
                             }
                             if (!ContactStore.numberExists(numb + "@s.whatsapp.net"))
