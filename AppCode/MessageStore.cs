@@ -27,6 +27,8 @@ namespace WinAppNET.AppCode
 'from_me' INTEGER,
 'read' INTEGER,
 'data' TEXT,
+'type' VARCHAR(64),
+'preview' TEXT,
 'timestamp' VARCHAR(64)
 )";
                 cmd.ExecuteNonQuery();
@@ -50,7 +52,15 @@ namespace WinAppNET.AppCode
                 while (reader.Read())
                 {
                     int id = Int32.Parse(reader["id"].ToString());
-                    string author = (string)reader["author"];
+                    string author = string.Empty;
+                    try
+                    {
+                        author = (string)reader["author"];
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
                     bool from_me = (Int32.Parse(reader["from_me"].ToString()) == 1 ? true : false);
                     string data = (string)reader["data"];
                     DateTime timestamp = DateTime.Parse(reader["timestamp"].ToString());
