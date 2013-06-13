@@ -24,7 +24,15 @@ namespace WinAppNET.Controls
             {
                 this.Padding = new Padding(50, this.Padding.Top, 4, this.Padding.Bottom);
             }
-            
+            if (!String.IsNullOrEmpty(msg.author))
+            {
+                Contact c = ContactStore.GetContactByJid(msg.author);
+                if (c != null)
+                {
+                    msg.author = c.FullName;
+                }
+                msg.data = String.Format("{0}\r\n{1}", msg.author, msg.data);
+            }
             Font f = MetroFonts.Tile(this.metroTile1.TileTextFontSize, this.metroTile1.TileTextFontWeight);
             int lineHeight = Int32.Parse(Math.Round((decimal)this.metroTile1.CreateGraphics().MeasureString("X", f).Height).ToString());
             SizeF sf = new SizeF();
