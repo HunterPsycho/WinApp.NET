@@ -231,6 +231,9 @@ namespace WinAppNET
                         {
                             //throw ex;
                         }
+
+                        //refresh list
+                        this._loadConversations();
                     }
                     if (paused != null)
                     {
@@ -341,37 +344,40 @@ namespace WinAppNET
                         string id = node.GetAttribute("id");
                         byte[] rawpicture = node.GetChild("picture").GetData();
                         Contact c = ContactStore.GetContactByJid(pjid);
-
-                        Image img = null;
-                        using (var ms = new MemoryStream(rawpicture))
+                        if (c != null)
                         {
-                            try
+                            Image img = null;
+                            using (var ms = new MemoryStream(rawpicture))
                             {
-                                img = Image.FromStream(ms);
-                                string targetdir = Directory.GetCurrentDirectory() + "\\data\\profilecache";
-                                if(!Directory.Exists(targetdir))
-                                {
-                                    Directory.CreateDirectory(targetdir);
-                                }
-                                img.Save(targetdir + "\\" + c.jid + ".jpg");
                                 try
                                 {
-                                    if (this.getChat(pjid, false, false) != null)
+                                    img = Image.FromStream(ms);
+                                    string targetdir = Directory.GetCurrentDirectory() + "\\data\\profilecache";
+                                    if (!Directory.Exists(targetdir))
                                     {
-                                        this.getChat(pjid, false, false).SetPicture(img);
+                                        Directory.CreateDirectory(targetdir);
+                                    }
+                                    img.Save(targetdir + "\\" + c.jid + ".jpg");
+                                    try
+                                    {
+                                        if (this.getChat(pjid, false, false) != null)
+                                        {
+                                            this.getChat(pjid, false, false).SetPicture(img);
+                                        }
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        throw e;
                                     }
                                 }
-                                catch (Exception e) {
+                                catch (Exception e)
+                                {
                                     throw e;
                                 }
                             }
-                            catch (Exception e)
-                            {
-                                throw e;
-                            }
                         }
-                        picturesToSync.Remove(pjid);
-                        this.requestProfilePicture();
+                        if(picturesToSync.Remove(pjid))
+                            this.requestProfilePicture();
                         
                     }
                     else if (node.children.First().tag.Equals("error") && node.children.First().GetAttribute("code") == "404")
