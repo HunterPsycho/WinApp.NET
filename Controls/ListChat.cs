@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using MetroFramework.Controls;
 using WinAppNET.AppCode;
 using MetroFramework;
+using System.IO;
 
 namespace WinAppNET.Controls
 {
@@ -33,18 +34,37 @@ namespace WinAppNET.Controls
                 }
                 msg.data = String.Format("{0}\r\n{1}", msg.author, msg.data);
             }
-            Font f = MetroFonts.Tile(this.metroTile1.TileTextFontSize, this.metroTile1.TileTextFontWeight);
-            int lineHeight = Int32.Parse(Math.Round((decimal)this.metroTile1.CreateGraphics().MeasureString("X", f).Height).ToString());
-            SizeF sf = new SizeF();
-            sf = this.metroTile1.CreateGraphics().MeasureString(msg.data, f, this.metroTile1.Width);
-            this.metroTile1.Text = msg.data;
-            int newHeight = (int)Math.Round(decimal.Parse(sf.Height.ToString()));
-            int lines = newHeight / f.Height;
-            //lines--;
-            
-            if (lines > 0)
+            if (msg.type == "image")
             {
-                this.Height = (lines * this.Height);
+                if (!string.IsNullOrEmpty(msg.preview))
+                {
+                    MemoryStream ms = new MemoryStream(Convert.FromBase64String(msg.preview));
+                    Image i = Image.FromStream(ms);
+                    this.Height += i.Height;
+                    this.Controls.Remove(this.metroTile1);
+                    PictureBox pb = new PictureBox();
+                    pb.Width = i.Width;
+                    pb.Height = i.Height;
+                    pb.Image = i;
+                    this.Controls.Add(pb);
+                }
+                
+            }
+            else
+            {
+                Font f = MetroFonts.Tile(this.metroTile1.TileTextFontSize, this.metroTile1.TileTextFontWeight);
+                int lineHeight = Int32.Parse(Math.Round((decimal)this.metroTile1.CreateGraphics().MeasureString("X", f).Height).ToString());
+                SizeF sf = new SizeF();
+                sf = this.metroTile1.CreateGraphics().MeasureString(msg.data, f, this.metroTile1.Width);
+                this.metroTile1.Text = msg.data;
+                int newHeight = (int)Math.Round(decimal.Parse(sf.Height.ToString()));
+                int lines = newHeight / f.Height;
+                //lines--;
+
+                if (lines > 0)
+                {
+                    this.Height = (lines * this.Height);
+                }
             }
         }
     }
