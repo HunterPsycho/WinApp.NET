@@ -432,13 +432,41 @@ namespace WinAppNET
             return toSync;
         }
 
+        private bool checkCredentials()
+        {
+            if (!(WappSocket.Instance != null && WappSocket.Instance.ConnectionStatus == WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN))
+            {
+                this.username = this.getUsername();
+                this.password = this.GetPassword();
+                if (!string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password))
+                {
+                    WappSocket.Create(username, password, "WinApp.NET", false);
+                    WappSocket.Instance.Connect();
+                    WappSocket.Instance.Login();
+                    if (WappSocket.Instance.ConnectionStatus == WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        WappSocket.Instance.Disconnect();
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         private void ContactsList_Load(object sender, EventArgs e)
         {
             string nickname = "WhatsAPINet";
             this.username = this.getUsername();
             this.password = this.GetPassword();
 
-            if (string.IsNullOrEmpty(this.username) || string.IsNullOrEmpty(this.password))
+            if (!this.checkCredentials())
             {
                 bool validCredentials = false;
                 do
