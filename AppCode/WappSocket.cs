@@ -22,7 +22,8 @@ namespace WinAppNET.AppCode
                 if (_instance != null)
                     return _instance;
                 else
-                    throw new Exception("Instance not set");
+                    //throw new Exception("Instance not set");
+                    return null;
             }
         }
     }
