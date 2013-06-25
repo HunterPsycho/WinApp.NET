@@ -59,30 +59,38 @@ namespace WinAppNET.AppCode
                 input.Add(c.jid.Split('@').First());
             }
             ContactSync s = new ContactSync(username, password);
-            ContactSyncResult[] res = s.Sync(input.ToArray());
-            foreach (ContactSyncResult r in res)
+            try
             {
-                if (r.w == 1)
+                ContactSyncResult[] res = s.Sync(input.ToArray());
+
+                if (res != null)
                 {
-                    string jid = r.n + "@s.whatsapp.net";
-                    Contact con = ContactStore.GetContactByJid(jid);
-                    if (con != null && con.status != r.s)
+                    foreach (ContactSyncResult r in res)
                     {
-                        //update status if changed
-                        con.status = r.s;
-                        ContactStore.UpdateStatus(con);
-                    }
-                }
-                else
-                {
-                    //delete
-                    Contact con = ContactStore.GetContactByJid(r.n + "@s.whatsapp.net");
-                    if (con != null)
-                    {
-                        ContactStore.DeleteContact(con);
+                        if (r.w == 1)
+                        {
+                            string jid = r.n + "@s.whatsapp.net";
+                            Contact con = ContactStore.GetContactByJid(jid);
+                            if (con != null && con.status != r.s)
+                            {
+                                //update status if changed
+                                con.status = r.s;
+                                ContactStore.UpdateStatus(con);
+                            }
+                        }
+                        else
+                        {
+                            //delete
+                            Contact con = ContactStore.GetContactByJid(r.n + "@s.whatsapp.net");
+                            if (con != null)
+                            {
+                                ContactStore.DeleteContact(con);
+                            }
+                        }
                     }
                 }
             }
+            catch (Exception) { }
         }
 
         public static void CheckTable()
