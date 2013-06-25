@@ -204,11 +204,13 @@ namespace WinAppNET
                 if (node.tag.Equals("message"))
                 {
                     ProtocolTreeNode body = node.GetChild("body");
+                    ProtocolTreeNode media = node.GetChild("media");
                     ProtocolTreeNode paused = node.GetChild("paused");
                     ProtocolTreeNode composing = node.GetChild("composing");
                     ProtocolTreeNode notification = node.GetChild("notification");
                     string jid = node.GetAttribute("from");
-                    if (body != null)
+
+                    if (body != null || media != null)
                     {
                         //extract and save nickname
                         if (node.GetChild("notify") != null && node.GetChild("notify").GetAttribute("name") != null)
@@ -226,10 +228,8 @@ namespace WinAppNET
                         {
                             this.getChat(jid, true, false).AddMessage(node);
                         }
-                        catch (Exception ex)
-                        {
-                            //throw ex;
-                        }
+                        catch (Exception)
+                        { }
 
                         //refresh list
                         this._loadConversations();
