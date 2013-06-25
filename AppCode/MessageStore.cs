@@ -63,8 +63,25 @@ namespace WinAppNET.AppCode
                     }
                     bool from_me = (Int32.Parse(reader["from_me"].ToString()) == 1 ? true : false);
                     string data = (string)reader["data"];
+                    string type;
+                    try
+                    {
+                        type = (string)reader["type"];
+                    }catch(Exception)
+                    {
+                        type = string.Empty;
+                    }
+                    string preview;
+                    try
+                    {
+                        preview = (string)reader["preview"];
+                    }
+                    catch (Exception)
+                    {
+                        preview = string.Empty;
+                    }
                     DateTime timestamp = DateTime.Parse(reader["timestamp"].ToString());
-                    WappMessage message = new WappMessage(id, data, from_me, jid, timestamp);
+                    WappMessage message = new WappMessage(id, data, from_me, jid, timestamp, type, preview);
                     if (!String.IsNullOrEmpty(author))
                     {
                         message.author = author;
@@ -91,14 +108,18 @@ namespace WinAppNET.AppCode
 'author',
 'from_me',
 'data',
-'timestamp'
+'timestamp',
+'type',
+'preview'
 )
 VALUES (
 '" + message.jid + @"',
 '" + message.author + @"',
 '" + (message.from_me ? "1" : "0") + @"',
 @data,
-'" + message.timestamp.ToString() + @"'
+'" + message.timestamp.ToString() + @"',
+'" + message.type + @"',
+'" + message.preview + @"'
 )";
                 cmd.Parameters.Add(new SQLiteParameter("@data", message.data));
                 cmd.ExecuteNonQuery();
