@@ -26,7 +26,6 @@ namespace WinAppNET
         protected string username;
         protected string password;
         private static List<string> picturesToSync = new List<string>();
-        private static string SyncID;
         private static Thread WAlistener;
 
         private string GetPassword()
