@@ -51,7 +51,7 @@ namespace WinAppNET
                     Image img = Image.FromFile(filepath);
                     this.pictureBox1.Image = img;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     GetImageAsync(this.target, false);
                 }
@@ -104,7 +104,7 @@ namespace WinAppNET
                 this.sp = new SoundPlayer(path);
                 this.sp.Load();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 this.sp = null;
             }

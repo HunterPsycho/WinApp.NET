@@ -124,7 +124,7 @@ namespace WinAppNET.Dialogs
             {
                 feed = GContactService.Query(query);
             }
-            catch (Exception exe)
+            catch (Exception)
             {
                 this.setLabelText("Invalid email or password", Color.Red);
                 return;

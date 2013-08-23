@@ -36,7 +36,7 @@ namespace WinAppNET
                 byte[] foo = Convert.FromBase64String(pass);
                 return pass;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return string.Empty;
             }
@@ -243,7 +243,7 @@ namespace WinAppNET
                                 this.getChat(jid, false, false).SetOnline();
                             }
                         }
-                        catch (Exception e) 
+                        catch (Exception) 
                         {
                             //throw e;
                         }
@@ -257,7 +257,7 @@ namespace WinAppNET
                                 this.getChat(jid, false, false).SetTyping();
                             }
                         }
-                        catch (Exception e) 
+                        catch (Exception) 
                         {
                             //throw e;
                         }
@@ -282,7 +282,7 @@ namespace WinAppNET
                                 this.getChat(jid, false, false).SetOnline();
                             }
                         }
-                        catch (Exception e) 
+                        catch (Exception) 
                         {
                             //throw e;
                         }
@@ -296,10 +296,8 @@ namespace WinAppNET
                                 this.getChat(jid, false, false).SetUnavailable();
                             }
                         }
-                        catch (Exception e) 
-                        {
-                            //throw e;
-                        }
+                        catch (Exception) 
+                        { }
                     }
                 }
                 else if (node.tag.Equals("iq"))
@@ -318,10 +316,8 @@ namespace WinAppNET
                                 getChat(jid, false, false).SetLastSeen(lastseen);
                             }
                         }
-                        catch (Exception e)
-                        {
-                            //throw e;
-                        }
+                        catch (Exception)
+                        { }
                     }
                     else if (node.children.First().tag.Equals("group"))
                     {
@@ -408,7 +404,7 @@ namespace WinAppNET
                     ProtocolTreeNode[] nodes = WappSocket.Instance.GetAllMessages();
                     this.ProcessMessages(nodes);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     WappSocket.Instance.ClearIncomplete();
                     //throw new Exception("Socket timed out. Reconnect please. (TO BE IMPLEMENTED)");
