@@ -38,6 +38,10 @@ namespace WinAppNET.Dialogs
                     {
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     }
+                    else
+                    {
+                        MessageBox.Show("Could not request code");
+                    }
                 }
                 catch (Exception)
                 {
