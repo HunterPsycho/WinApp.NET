@@ -42,8 +42,34 @@ namespace WinAppNET.Dialogs
             DialogResult regres = regform.ShowDialog();
             if (regres == System.Windows.Forms.DialogResult.OK)
             {
+                if (!string.IsNullOrEmpty(regform.password))
+                {
+                    //found password!
+                    this.onPasswordReceived(regform.phonenumber, regform.password);
+                    return;
+                }
+                this.txtPhonenumber.Text = regform.phonenumber;
 
+                //show code register form
+                frmRegister2 reg2 = new frmRegister2();
+                reg2.identity = regform.identity;
+                reg2.phonenumber = regform.phonenumber;
+                regres = reg2.ShowDialog();
+                if (regres == System.Windows.Forms.DialogResult.OK && !string.IsNullOrEmpty(reg2.password))
+                {
+                    //success!
+                    this.onPasswordReceived(reg2.phonenumber, reg2.password);
+                    return;
+                }
             }
+
+            //nope nope nope
+            MessageBox.Show("Failed registering your number");
+        }
+
+        private void onPasswordReceived(string username, string password)
+        {
+
         }
     }
 }
