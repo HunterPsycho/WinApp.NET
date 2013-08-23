@@ -49,6 +49,7 @@
             this.txtNumber.MaxLength = 32767;
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.PasswordChar = '\0';
+            this.txtNumber.PromptText = "Enter your phone number";
             this.txtNumber.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txtNumber.SelectedText = "";
             this.txtNumber.Size = new System.Drawing.Size(150, 23);
