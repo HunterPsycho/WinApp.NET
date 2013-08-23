@@ -154,6 +154,12 @@
     <Compile Include="Dialogs\frmRegister.Designer.cs">
       <DependentUpon>frmRegister.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\frmRegister2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\frmRegister2.Designer.cs">
+      <DependentUpon>frmRegister2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\WappCredentials.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmRegister.resx">
       <DependentUpon>frmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\frmRegister2.resx">
+      <DependentUpon>frmRegister2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\WappCredentials.resx">
       <DependentUpon>WappCredentials.cs</DependentUpon>
