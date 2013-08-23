@@ -13,13 +13,20 @@ namespace WinAppNET.Dialogs
     public partial class frmRegister : MetroForm
     {
         private string[] methods = { "sms", "voice" };
-        public string phonenumber;
+        private string _phonenumber;
+        public string phonenumber
+        {
+            get
+            {
+                return this._phonenumber;
+            }
+        }
         public string password = string.Empty;
         public string identity;
 
         public void SetNumber(string phonenumber)
         {
-            this.phonenumber = phonenumber;
+            this._phonenumber = phonenumber;
             this.txtNumber.Text = phonenumber;
         }
 
@@ -31,7 +38,7 @@ namespace WinAppNET.Dialogs
 
         private void btnRequest_Click(object sender, EventArgs e)
         {
-            this.phonenumber = this.txtNumber.Text;
+            this._phonenumber = this.txtNumber.Text;
             if (!string.IsNullOrEmpty(this.phonenumber))
             {
                 try
