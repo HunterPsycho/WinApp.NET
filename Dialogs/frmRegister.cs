@@ -17,10 +17,15 @@ namespace WinAppNET.Dialogs
         public string password = string.Empty;
         public string identity;
 
+        public void SetNumber(string phonenumber)
+        {
+            this.phonenumber = phonenumber;
+            this.txtNumber.Text = phonenumber;
+        }
+
         public frmRegister()
         {
             InitializeComponent();
-            this.txtNumber.Text = this.phonenumber;
             this.cmbMethod.DataSource = methods;
         }
 

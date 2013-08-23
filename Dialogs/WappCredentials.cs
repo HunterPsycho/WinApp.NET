@@ -38,7 +38,7 @@ namespace WinAppNET.Dialogs
         private void btnRegister_Click(object sender, EventArgs e)
         {
             frmRegister regform = new frmRegister();
-            regform.phonenumber = this.txtPhonenumber.Text;
+            regform.SetNumber(this.txtPhonenumber.Text);
             DialogResult regres = regform.ShowDialog();
             if (regres == System.Windows.Forms.DialogResult.OK)
             {
