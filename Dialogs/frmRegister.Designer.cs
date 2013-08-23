@@ -32,12 +32,14 @@
             this.txtNumber = new MetroFramework.Controls.MetroTextBox();
             this.btnRequest = new MetroFramework.Controls.MetroButton();
             this.cmbMethod = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.txtPersonalPass = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(25, 64);
+            this.metroLabel1.Location = new System.Drawing.Point(23, 64);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(96, 19);
             this.metroLabel1.TabIndex = 0;
@@ -45,20 +47,20 @@
             // 
             // txtNumber
             // 
-            this.txtNumber.Location = new System.Drawing.Point(127, 64);
+            this.txtNumber.Location = new System.Drawing.Point(147, 64);
             this.txtNumber.MaxLength = 32767;
             this.txtNumber.Name = "txtNumber";
             this.txtNumber.PasswordChar = '\0';
             this.txtNumber.PromptText = "Enter your phone number";
             this.txtNumber.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txtNumber.SelectedText = "";
-            this.txtNumber.Size = new System.Drawing.Size(150, 23);
+            this.txtNumber.Size = new System.Drawing.Size(170, 23);
             this.txtNumber.TabIndex = 1;
             this.txtNumber.UseSelectable = true;
             // 
             // btnRequest
             // 
-            this.btnRequest.Location = new System.Drawing.Point(179, 94);
+            this.btnRequest.Location = new System.Drawing.Point(219, 122);
             this.btnRequest.Name = "btnRequest";
             this.btnRequest.Size = new System.Drawing.Size(98, 29);
             this.btnRequest.TabIndex = 2;
@@ -70,17 +72,41 @@
             // 
             this.cmbMethod.FormattingEnabled = true;
             this.cmbMethod.ItemHeight = 23;
-            this.cmbMethod.Location = new System.Drawing.Point(24, 94);
+            this.cmbMethod.Location = new System.Drawing.Point(24, 122);
             this.cmbMethod.Name = "cmbMethod";
             this.cmbMethod.Size = new System.Drawing.Size(121, 29);
             this.cmbMethod.TabIndex = 3;
             this.cmbMethod.UseSelectable = true;
             // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(24, 93);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(117, 19);
+            this.metroLabel2.TabIndex = 4;
+            this.metroLabel2.Text = "Personal password";
+            // 
+            // txtPersonalPass
+            // 
+            this.txtPersonalPass.Location = new System.Drawing.Point(147, 93);
+            this.txtPersonalPass.MaxLength = 32767;
+            this.txtPersonalPass.Name = "txtPersonalPass";
+            this.txtPersonalPass.PasswordChar = '*';
+            this.txtPersonalPass.PromptText = "Optional but recommended";
+            this.txtPersonalPass.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtPersonalPass.SelectedText = "";
+            this.txtPersonalPass.Size = new System.Drawing.Size(170, 23);
+            this.txtPersonalPass.TabIndex = 5;
+            this.txtPersonalPass.UseSelectable = true;
+            // 
             // frmRegister
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 151);
+            this.ClientSize = new System.Drawing.Size(340, 173);
+            this.Controls.Add(this.txtPersonalPass);
+            this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.cmbMethod);
             this.Controls.Add(this.btnRequest);
             this.Controls.Add(this.txtNumber);
@@ -98,5 +124,7 @@
         private MetroFramework.Controls.MetroTextBox txtNumber;
         private MetroFramework.Controls.MetroButton btnRequest;
         private MetroFramework.Controls.MetroComboBox cmbMethod;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
+        private MetroFramework.Controls.MetroTextBox txtPersonalPass;
     }
 }
