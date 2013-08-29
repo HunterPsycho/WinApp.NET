@@ -46,13 +46,14 @@ namespace WinAppNET.Dialogs
                     WhatsAppApi.Parser.PhoneNumber ph = new WhatsAppApi.Parser.PhoneNumber(this.phonenumber);
                     this.identity = WhatsAppApi.Register.WhatsRegisterV2.GenerateIdentity(ph.Number, this.txtPersonalPass.Text);
                     string method = this.cmbMethod.Text;
-                    if (WhatsAppApi.Register.WhatsRegisterV2.RequestCode(ph.CC, ph.Number, out this.password, method, this.identity, ph.ISO639, ph.ISO3166, ph.MCC))
+                    string response = string.Empty;
+                    if (WhatsAppApi.Register.WhatsRegisterV2.RequestCode(ph.CC, ph.Number, out this.password, out response, method, this.identity, ph.ISO639, ph.ISO3166, ph.MCC))
                     {
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     }
                     else
                     {
-                        MessageBox.Show("Could not request code");
+                        MessageBox.Show(String.Format("Could not request code:\r\n{0}", response));
                     }
                 }
                 catch (Exception)
