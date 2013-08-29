@@ -1,4 +1,4 @@
-﻿using MetroFramework.Controls;
+﻿using System.Windows.Forms;
 namespace WinAppNET
 {
     partial class ContactsSelector
@@ -30,7 +30,7 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsSelector));
-            this.textBox1 = new MetroFramework.Controls.MetroTextBox();
+            this.textBox1 = new TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -42,14 +42,10 @@ namespace WinAppNET
             this.textBox1.MaxLength = 32767;
             this.textBox1.Name = "textBox1";
             this.textBox1.PasswordChar = '\0';
-            this.textBox1.PromptText = "Start typing...";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.textBox1.SelectedText = "";
             this.textBox1.Size = new System.Drawing.Size(259, 20);
-            this.textBox1.Style = MetroFramework.MetroColorStyle.Red;
             this.textBox1.TabIndex = 0;
-            this.textBox1.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.textBox1.UseSelectable = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // flowLayoutPanel1
@@ -73,7 +69,6 @@ namespace WinAppNET
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(284, 424);
             this.Name = "ContactsSelector";
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Select a contact";
             this.ResumeLayout(false);
 
@@ -81,7 +76,7 @@ namespace WinAppNET
 
         #endregion
 
-        private MetroTextBox textBox1;
+        private TextBox textBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

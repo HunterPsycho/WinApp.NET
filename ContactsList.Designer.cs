@@ -1,4 +1,4 @@
-﻿using MetroFramework.Controls;
+﻿using System.Windows.Forms;
 namespace WinAppNET
 {
     partial class ContactsList
@@ -30,9 +30,7 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsList));
-            this.label1 = new MetroFramework.Controls.MetroLabel();
-            this.tileNew = new MetroFramework.Controls.MetroTile();
-            this.tileGoogle = new MetroFramework.Controls.MetroTile();
+            this.label1 = new Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -42,38 +40,8 @@ namespace WinAppNET
             this.label1.Location = new System.Drawing.Point(20, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 19);
-            this.label1.Style = MetroFramework.MetroColorStyle.Blue;
             this.label1.TabIndex = 2;
             this.label1.Text = "Updating contacts...";
-            this.label1.Theme = MetroFramework.MetroThemeStyle.Light;
-            // 
-            // tileNew
-            // 
-            this.tileNew.ActiveControl = null;
-            this.tileNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileNew.Location = new System.Drawing.Point(219, 60);
-            this.tileNew.Name = "tileNew";
-            this.tileNew.Size = new System.Drawing.Size(58, 49);
-            this.tileNew.Style = MetroFramework.MetroColorStyle.Red;
-            this.tileNew.TabIndex = 4;
-            this.tileNew.Text = "New\r\nchat";
-            this.tileNew.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.tileNew.UseSelectable = true;
-            this.tileNew.Click += new System.EventHandler(this.tileNew_Click);
-            // 
-            // tileGoogle
-            // 
-            this.tileGoogle.ActiveControl = null;
-            this.tileGoogle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tileGoogle.Location = new System.Drawing.Point(155, 60);
-            this.tileGoogle.Name = "tileGoogle";
-            this.tileGoogle.Size = new System.Drawing.Size(58, 49);
-            this.tileGoogle.Style = MetroFramework.MetroColorStyle.Red;
-            this.tileGoogle.TabIndex = 5;
-            this.tileGoogle.Text = "Import\r\nGoogle";
-            this.tileGoogle.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.tileGoogle.UseSelectable = true;
-            this.tileGoogle.Click += new System.EventHandler(this.tileGoogle_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -93,13 +61,10 @@ namespace WinAppNET
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 425);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.tileGoogle);
-            this.Controls.Add(this.tileNew);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(300, 425);
             this.Name = "ContactsList";
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Chats";
             this.Load += new System.EventHandler(this.ContactsList_Load);
             this.ResumeLayout(false);
@@ -109,9 +74,7 @@ namespace WinAppNET
 
         #endregion
 
-        private MetroLabel label1;
-        private MetroTile tileNew;
-        private MetroTile tileGoogle;
+        private Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

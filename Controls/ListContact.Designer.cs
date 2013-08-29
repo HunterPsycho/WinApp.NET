@@ -1,4 +1,5 @@
-﻿namespace WinAppNET.Controls
+﻿using System.Windows.Forms;
+namespace WinAppNET.Controls
 {
     partial class ListContact
     {
@@ -29,7 +30,7 @@
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblName = new MetroFramework.Controls.MetroLabel();
+            this.lblName = new Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,11 +50,8 @@
             this.lblName.Location = new System.Drawing.Point(59, 4);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(81, 19);
-            this.lblName.Style = MetroFramework.MetroColorStyle.Red;
             this.lblName.TabIndex = 1;
             this.lblName.Text = "metroLabel1";
-            this.lblName.UseCustomBackColor = true;
-            this.lblName.UseCustomForeColor = true;
             // 
             // ListContact
             // 
@@ -65,7 +63,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "ListContact";
             this.Size = new System.Drawing.Size(240, 60);
-            this.UseCustomBackColor = true;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -75,7 +72,7 @@
         #endregion
 
         public System.Windows.Forms.PictureBox pictureBox1;
-        public MetroFramework.Controls.MetroLabel lblName;
+        public Label lblName;
 
     }
 }

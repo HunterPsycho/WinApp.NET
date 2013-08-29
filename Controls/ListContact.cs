@@ -7,21 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using WinAppNET.AppCode;
-using MetroFramework.Controls;
 using System.IO;
 
 namespace WinAppNET.Controls
 {
-    public partial class ListContact : MetroUserControl
+    public partial class ListContact : UserControl
     {
         public Contact contact;
-        public ListContact(string jid, MetroFramework.MetroColorStyle style)
+        public ListContact(string jid)
         {
-            this.Style = style;
             InitializeComponent();
             int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
             this.Width -= vertScrollWidth;
-            this.BackColor = Helper.GetMetroThemeColor(style);
             this.contact = ContactStore.GetContactByJid(jid);
             if (this.contact != null)
             {

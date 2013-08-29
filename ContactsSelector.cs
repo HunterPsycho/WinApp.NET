@@ -8,12 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using WinAppNET.AppCode;
 using System.Threading;
-using MetroFramework.Forms;
 using WinAppNET.Controls;
 
 namespace WinAppNET
 {
-    public partial class ContactsSelector : MetroForm
+    public partial class ContactsSelector : Form
     {
         protected Contact[] _initialContacts;
         protected BindingList<Contact> _matchingContacts = new BindingList<Contact>();
@@ -35,7 +34,7 @@ namespace WinAppNET
             this.flowLayoutPanel1.Controls.Clear();
             foreach (Contact contact in this._matchingContacts)
             {
-                ListContact lc = new ListContact(contact.jid, this.Style);
+                ListContact lc = new ListContact(contact.jid);
                 lc.DoubleClick += this.listContact_DoubleClick;
                 this.flowLayoutPanel1.Controls.Add(lc);
             }

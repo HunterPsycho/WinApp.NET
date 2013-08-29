@@ -28,32 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.metroTile1 = new MetroFramework.Controls.MetroMessageTile();
             this.SuspendLayout();
-            // 
-            // metroTile1
-            // 
-            this.metroTile1.ActiveControl = null;
-            this.metroTile1.AutoSize = true;
-            this.metroTile1.BackColor = System.Drawing.Color.DarkRed;
-            this.metroTile1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroTile1.Location = new System.Drawing.Point(4, 2);
-            this.metroTile1.MaximumSize = new System.Drawing.Size(180, 0);
-            this.metroTile1.MinimumSize = new System.Drawing.Size(180, 0);
-            this.metroTile1.Name = "metroTile1";
-            this.metroTile1.PaintTileCount = false;
-            this.metroTile1.Size = new System.Drawing.Size(180, 23);
-            this.metroTile1.TabIndex = 0;
-            this.metroTile1.Text = "metroTile1";
-            this.metroTile1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.metroTile1.TileCount = 2;
-            this.metroTile1.UseCustomBackColor = true;
-            this.metroTile1.UseSelectable = true;
+
             // 
             // ListChat
             // 
             this.AutoSize = true;
-            this.Controls.Add(this.metroTile1);
             this.MaximumSize = new System.Drawing.Size(250, 0);
             this.Name = "ListChat";
             this.Padding = new System.Windows.Forms.Padding(4, 2, 50, 2);
@@ -64,9 +44,6 @@
         }
 
         #endregion
-
-        public MetroFramework.Controls.MetroMessageTile metroTile1;
-
 
 
 

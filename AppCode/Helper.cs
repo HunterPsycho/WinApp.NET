@@ -45,40 +45,5 @@ namespace WinAppNET.AppCode
                 Directory.CreateDirectory(foo);
             }
         }
-
-        public static Color GetMetroThemeColor(MetroFramework.MetroColorStyle style)
-        {
-            switch (style)
-            {
-                case MetroFramework.MetroColorStyle.Black:
-                    return MetroFramework.MetroColors.Black;
-                case MetroFramework.MetroColorStyle.Brown:
-                    return MetroFramework.MetroColors.Brown;
-                case MetroFramework.MetroColorStyle.Green:
-                    return MetroFramework.MetroColors.Green;
-                case MetroFramework.MetroColorStyle.Lime:
-                    return MetroFramework.MetroColors.Lime;
-                case MetroFramework.MetroColorStyle.Magenta:
-                    return MetroFramework.MetroColors.Magenta;
-                case MetroFramework.MetroColorStyle.Orange:
-                    return MetroFramework.MetroColors.Orange;
-                case MetroFramework.MetroColorStyle.Pink:
-                    return MetroFramework.MetroColors.Pink;
-                case MetroFramework.MetroColorStyle.Purple:
-                    return MetroFramework.MetroColors.Purple;
-                case MetroFramework.MetroColorStyle.Red:
-                    return MetroFramework.MetroColors.Red;
-                case MetroFramework.MetroColorStyle.Silver:
-                    return MetroFramework.MetroColors.Silver;
-                case MetroFramework.MetroColorStyle.Teal:
-                    return MetroFramework.MetroColors.Teal;
-                case MetroFramework.MetroColorStyle.White:
-                    return MetroFramework.MetroColors.White;
-                case MetroFramework.MetroColorStyle.Yellow:
-                    return MetroFramework.MetroColors.Yellow;
-                default:
-                    return MetroFramework.MetroColors.Blue;
-            }
-        }
     }
 }

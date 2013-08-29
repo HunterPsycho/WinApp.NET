@@ -1,4 +1,4 @@
-﻿using MetroFramework.Controls;
+﻿using System.Windows.Forms;
 namespace WinAppNET.Dialogs
 {
     partial class frmGoogleSync
@@ -30,14 +30,13 @@ namespace WinAppNET.Dialogs
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGoogleSync));
-            this.label1 = new MetroFramework.Controls.MetroLabel();
-            this.label2 = new MetroFramework.Controls.MetroLabel();
-            this.txtEmail = new MetroFramework.Controls.MetroTextBox();
-            this.txtPassword = new MetroFramework.Controls.MetroTextBox();
-            this.lblError = new MetroFramework.Controls.MetroLabel();
-            this.btnSync = new MetroFramework.Controls.MetroButton();
-            this.progressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.SuspendLayout();
+            this.label1 = new Label();
+            this.label2 = new Label();
+            this.txtEmail = new TextBox();
+            this.txtPassword = new TextBox();
+            this.lblError = new Label();
+            this.btnSync = new Button();
+            this.progressBar = new ProgressBar();
             // 
             // label1
             // 
@@ -45,10 +44,8 @@ namespace WinAppNET.Dialogs
             this.label1.Location = new System.Drawing.Point(8, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 19);
-            this.label1.Style = MetroFramework.MetroColorStyle.Blue;
             this.label1.TabIndex = 0;
             this.label1.Text = "E-mail address";
-            this.label1.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // label2
             // 
@@ -56,10 +53,8 @@ namespace WinAppNET.Dialogs
             this.label2.Location = new System.Drawing.Point(8, 124);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 19);
-            this.label2.Style = MetroFramework.MetroColorStyle.Blue;
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
-            this.label2.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // txtEmail
             // 
@@ -70,10 +65,7 @@ namespace WinAppNET.Dialogs
             this.txtEmail.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txtEmail.SelectedText = "";
             this.txtEmail.Size = new System.Drawing.Size(151, 20);
-            this.txtEmail.Style = MetroFramework.MetroColorStyle.Red;
             this.txtEmail.TabIndex = 2;
-            this.txtEmail.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtEmail.UseSelectable = true;
             // 
             // txtPassword
             // 
@@ -84,10 +76,7 @@ namespace WinAppNET.Dialogs
             this.txtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.txtPassword.SelectedText = "";
             this.txtPassword.Size = new System.Drawing.Size(151, 20);
-            this.txtPassword.Style = MetroFramework.MetroColorStyle.Red;
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtPassword.UseSelectable = true;
             // 
             // lblError
             // 
@@ -96,21 +85,16 @@ namespace WinAppNET.Dialogs
             this.lblError.Location = new System.Drawing.Point(8, 67);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(262, 19);
-            this.lblError.Style = MetroFramework.MetroColorStyle.Blue;
             this.lblError.TabIndex = 4;
             this.lblError.Text = "Please enter your Google login information";
-            this.lblError.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
             // btnSync
             // 
             this.btnSync.Location = new System.Drawing.Point(134, 161);
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(127, 27);
-            this.btnSync.Style = MetroFramework.MetroColorStyle.Red;
             this.btnSync.TabIndex = 5;
             this.btnSync.Text = "Synchronize contacts";
-            this.btnSync.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.btnSync.UseSelectable = true;
             this.btnSync.Click += new System.EventHandler(this.btnSync_Click);
             // 
             // progressBar
@@ -118,9 +102,7 @@ namespace WinAppNET.Dialogs
             this.progressBar.Location = new System.Drawing.Point(8, 161);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(253, 27);
-            this.progressBar.Style = MetroFramework.MetroColorStyle.Red;
             this.progressBar.TabIndex = 7;
-            this.progressBar.Theme = MetroFramework.MetroThemeStyle.Light;
             this.progressBar.Visible = false;
             // 
             // frmGoogleSync
@@ -140,7 +122,6 @@ namespace WinAppNET.Dialogs
             this.Name = "frmGoogleSync";
             this.Padding = new System.Windows.Forms.Padding(0, 60, 0, 0);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Google contacts";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -149,12 +130,12 @@ namespace WinAppNET.Dialogs
 
         #endregion
 
-        private MetroLabel label1;
-        private MetroLabel label2;
-        private MetroTextBox txtEmail;
-        private MetroTextBox txtPassword;
-        private MetroLabel lblError;
-        private MetroButton btnSync;
-        private MetroProgressBar progressBar;
+        private Label label1;
+        private Label label2;
+        private TextBox txtEmail;
+        private TextBox txtPassword;
+        private Label lblError;
+        private Button btnSync;
+        private ProgressBar progressBar;
     }
 }

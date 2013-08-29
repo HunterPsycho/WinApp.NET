@@ -1,4 +1,4 @@
-﻿using MetroFramework.Controls;
+﻿using System.Windows.Forms;
 namespace WinAppNET
 {
     partial class ChatWindow
@@ -30,14 +30,14 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatWindow));
-            this.textBox1 = new MetroFramework.Controls.MetroTextBox();
-            this.button1 = new MetroFramework.Controls.MetroButton();
-            this.label1 = new MetroFramework.Controls.MetroLabel();
+            this.textBox1 = new TextBox();
+            this.button1 = new Button();
+            this.label1 = new Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblUserStatus = new MetroFramework.Controls.MetroLabel();
-            this.lblNick = new MetroFramework.Controls.MetroLabel();
+            this.lblUserStatus = new Label();
+            this.lblNick = new Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.Button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +53,6 @@ namespace WinAppNET
             this.textBox1.SelectedText = "";
             this.textBox1.Size = new System.Drawing.Size(144, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.UseSelectable = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button1
@@ -65,7 +64,6 @@ namespace WinAppNET
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Send";
-            this.button1.UseSelectable = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
@@ -118,16 +116,15 @@ namespace WinAppNET
             this.flowLayoutPanel1.Size = new System.Drawing.Size(267, 247);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
-            // metroButton1
+            // Button1
             // 
-            this.metroButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroButton1.Location = new System.Drawing.Point(255, 418);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(36, 23);
-            this.metroButton1.TabIndex = 9;
-            this.metroButton1.Text = "Img";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button1.Location = new System.Drawing.Point(255, 418);
+            this.Button1.Name = "Button1";
+            this.Button1.Size = new System.Drawing.Size(36, 23);
+            this.Button1.TabIndex = 9;
+            this.Button1.Text = "Img";
+            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // ChatWindow
             // 
@@ -135,7 +132,7 @@ namespace WinAppNET
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 460);
-            this.Controls.Add(this.metroButton1);
+            this.Controls.Add(this.Button1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lblNick);
             this.Controls.Add(this.lblUserStatus);
@@ -146,7 +143,6 @@ namespace WinAppNET
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ChatWindow";
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Chat";
             this.Load += new System.EventHandler(this.ChatWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -157,14 +153,14 @@ namespace WinAppNET
 
         #endregion
 
-        private MetroTextBox textBox1;
-        private MetroButton button1;
-        private MetroLabel label1;
+        private TextBox textBox1;
+        private Button button1;
+        private Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private MetroLabel lblUserStatus;
-        private MetroLabel lblNick;
+        private Label lblUserStatus;
+        private Label lblNick;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private MetroButton metroButton1;
+        private Button Button1;
     }
 }
 

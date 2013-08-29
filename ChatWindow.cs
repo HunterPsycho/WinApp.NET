@@ -11,13 +11,12 @@ using System.Threading;
 using WinAppNET.AppCode;
 using System.IO;
 using System.Runtime.InteropServices;
-using MetroFramework.Forms;
 using WinAppNET.Controls;
 using System.Media;
 
 namespace WinAppNET
 {
-    public partial class ChatWindow : MetroForm
+    public partial class ChatWindow : Form
     {
         const int MESSAGE_LIMIT = 100;
 
@@ -138,7 +137,7 @@ namespace WinAppNET
             this.flowLayoutPanel1.Controls.Clear();
             foreach (WappMessage msg in this.messages)
             {
-                ListChat chat = new ListChat(msg, this.Style);
+                ListChat chat = new ListChat(msg);
                 this.flowLayoutPanel1.Controls.Add(chat);
             }
         }
@@ -302,7 +301,7 @@ namespace WinAppNET
 
         private void addChatMessage(WappMessage message)
         {
-            ListChat lc = new ListChat(message, this.Style);
+            ListChat lc = new ListChat(message);
             this.flowLayoutPanel1.Controls.Add(lc);
             while (this.flowLayoutPanel1.Controls.Count > MESSAGE_LIMIT)
             {
@@ -441,7 +440,7 @@ namespace WinAppNET
             }
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             Thread t = new Thread(new ThreadStart(MediaPick));
             t.SetApartmentState(ApartmentState.STA);

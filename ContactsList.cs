@@ -12,16 +12,14 @@ using System.Data.SQLite;
 using System.Threading;
 using System.IO;
 using WhatsAppApi.Helper;
-using MetroFramework.Forms;
 using WinAppNET.Controls;
 using WinAppNET.Dialogs;
 using System.Configuration;
 
 namespace WinAppNET
 {
-    public partial class ContactsList : MetroForm
+    public partial class ContactsList : Form
     {
-        public static MetroFramework.Components.MetroStyleManager StyleManager = new MetroFramework.Components.MetroStyleManager();
         public BindingList<Contact> contacts = new BindingList<Contact>();
         public Dictionary<string, ChatWindow> ChatWindows = new Dictionary<string, ChatWindow>();
         protected string username;
@@ -94,7 +92,7 @@ namespace WinAppNET
                             this.contacts.Add(contact);
 
                             //add to richtextbox
-                            ListContact c = new ListContact(contact.jid, this.Style);
+                            ListContact c = new ListContact(contact.jid);
                             c.DoubleClick += this.contact_dblClick;
                             this.flowLayoutPanel1.Controls.Add(c);
                         }
