@@ -81,6 +81,7 @@ namespace WinAppNET
 
         public ChatWindow(string target, bool stealFocus, bool onTop)
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             this.stealFocus = stealFocus;
             this.onTop = onTop;
             this.TopMost = onTop;

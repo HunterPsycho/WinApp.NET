@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WinAppNET.AppCode;
 
 namespace WinAppNET.Dialogs
 {
@@ -32,6 +33,7 @@ namespace WinAppNET.Dialogs
 
         public frmRegister()
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
             this.cmbMethod.DataSource = methods;
         }

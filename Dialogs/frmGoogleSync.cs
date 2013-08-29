@@ -22,6 +22,7 @@ namespace WinAppNET.Dialogs
 
         public frmGoogleSync()
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
         }
 

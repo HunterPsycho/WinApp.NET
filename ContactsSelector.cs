@@ -21,6 +21,7 @@ namespace WinAppNET
 
         public ContactsSelector()
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
             this._initialContacts = ContactStore.GetAllContacts();
             foreach(Contact c in this._initialContacts)
