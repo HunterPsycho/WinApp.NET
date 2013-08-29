@@ -30,16 +30,16 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsList));
-            this.label1 = new Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 60);
+            this.label1.Location = new System.Drawing.Point(17, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 19);
+            this.label1.Size = new System.Drawing.Size(103, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Updating contacts...";
             // 
@@ -50,9 +50,9 @@ namespace WinAppNET
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 115);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 39);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 287);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 363);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // ContactsList

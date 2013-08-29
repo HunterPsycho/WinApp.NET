@@ -30,7 +30,7 @@ namespace WinAppNET
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsSelector));
-            this.textBox1 = new TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -38,12 +38,8 @@ namespace WinAppNET
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(13, 63);
-            this.textBox1.MaxLength = 32767;
+            this.textBox1.Location = new System.Drawing.Point(13, 12);
             this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '\0';
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBox1.SelectedText = "";
             this.textBox1.Size = new System.Drawing.Size(259, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -54,9 +50,9 @@ namespace WinAppNET
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 90);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 38);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(259, 311);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(259, 363);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // ContactsSelector
@@ -71,6 +67,7 @@ namespace WinAppNET
             this.Name = "ContactsSelector";
             this.Text = "Select a contact";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

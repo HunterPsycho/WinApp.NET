@@ -30,68 +30,60 @@ namespace WinAppNET.Dialogs
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WappCredentials));
-            this.Label1 = new Label();
-            this.Label2 = new Label();
-            this.txtPhonenumber = new TextBox();
-            this.txtPassword = new TextBox();
-            this.btnLogin = new Button();
-            this.btnRegister = new Button();
+            this.Label1 = new System.Windows.Forms.Label();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.txtPhonenumber = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // metroLabel1
+            // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(24, 64);
-            this.Label1.Name = "metroLabel1";
-            this.Label1.Size = new System.Drawing.Size(96, 19);
+            this.Label1.Location = new System.Drawing.Point(12, 15);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(76, 13);
             this.Label1.TabIndex = 0;
             this.Label1.Text = "Phone number";
             // 
-            // metroLabel2
+            // Label2
             // 
             this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(24, 94);
-            this.Label2.Name = "metroLabel2";
-            this.Label2.Size = new System.Drawing.Size(63, 19);
+            this.Label2.Location = new System.Drawing.Point(12, 41);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(53, 13);
             this.Label2.TabIndex = 1;
             this.Label2.Text = "Password";
             // 
             // txtPhonenumber
             // 
-            this.txtPhonenumber.Location = new System.Drawing.Point(127, 64);
-            this.txtPhonenumber.MaxLength = 32767;
+            this.txtPhonenumber.Location = new System.Drawing.Point(94, 12);
             this.txtPhonenumber.Name = "txtPhonenumber";
-            this.txtPhonenumber.PasswordChar = '\0';
-            this.txtPhonenumber.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtPhonenumber.SelectedText = "";
-            this.txtPhonenumber.Size = new System.Drawing.Size(225, 23);
+            this.txtPhonenumber.Size = new System.Drawing.Size(225, 20);
             this.txtPhonenumber.TabIndex = 2;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(127, 94);
-            this.txtPassword.MaxLength = 32767;
+            this.txtPassword.Location = new System.Drawing.Point(94, 38);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '\0';
-            this.txtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtPassword.SelectedText = "";
-            this.txtPassword.Size = new System.Drawing.Size(225, 23);
+            this.txtPassword.Size = new System.Drawing.Size(225, 20);
             this.txtPassword.TabIndex = 3;
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(295, 124);
+            this.btnLogin.Location = new System.Drawing.Point(247, 75);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(57, 43);
+            this.btnLogin.Size = new System.Drawing.Size(72, 24);
             this.btnLogin.TabIndex = 4;
             this.btnLogin.Text = "Login";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(220, 124);
+            this.btnRegister.Location = new System.Drawing.Point(172, 75);
             this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(69, 43);
+            this.btnRegister.Size = new System.Drawing.Size(69, 24);
             this.btnRegister.TabIndex = 5;
             this.btnRegister.Text = "Register";
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
@@ -100,7 +92,7 @@ namespace WinAppNET.Dialogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 187);
+            this.ClientSize = new System.Drawing.Size(332, 112);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);

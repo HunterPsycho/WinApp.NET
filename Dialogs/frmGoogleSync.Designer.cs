@@ -30,51 +30,45 @@ namespace WinAppNET.Dialogs
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGoogleSync));
-            this.label1 = new Label();
-            this.label2 = new Label();
-            this.txtEmail = new TextBox();
-            this.txtPassword = new TextBox();
-            this.lblError = new Label();
-            this.btnSync = new Button();
-            this.progressBar = new ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblError = new System.Windows.Forms.Label();
+            this.btnSync = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 98);
+            this.label1.Location = new System.Drawing.Point(8, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 19);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "E-mail address";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 124);
+            this.label2.Location = new System.Drawing.Point(8, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 19);
+            this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(110, 98);
-            this.txtEmail.MaxLength = 32767;
+            this.txtEmail.Location = new System.Drawing.Point(89, 10);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.PasswordChar = '\0';
-            this.txtEmail.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtEmail.SelectedText = "";
             this.txtEmail.Size = new System.Drawing.Size(151, 20);
             this.txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(110, 124);
-            this.txtPassword.MaxLength = 32767;
+            this.txtPassword.Location = new System.Drawing.Point(89, 36);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtPassword.SelectedText = "";
             this.txtPassword.Size = new System.Drawing.Size(151, 20);
             this.txtPassword.TabIndex = 3;
             // 
@@ -82,15 +76,15 @@ namespace WinAppNET.Dialogs
             // 
             this.lblError.AutoSize = true;
             this.lblError.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblError.Location = new System.Drawing.Point(8, 67);
+            this.lblError.Location = new System.Drawing.Point(8, 60);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(262, 19);
+            this.lblError.Size = new System.Drawing.Size(205, 13);
             this.lblError.TabIndex = 4;
             this.lblError.Text = "Please enter your Google login information";
             // 
             // btnSync
             // 
-            this.btnSync.Location = new System.Drawing.Point(134, 161);
+            this.btnSync.Location = new System.Drawing.Point(113, 76);
             this.btnSync.Name = "btnSync";
             this.btnSync.Size = new System.Drawing.Size(127, 27);
             this.btnSync.TabIndex = 5;
@@ -99,9 +93,9 @@ namespace WinAppNET.Dialogs
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(8, 161);
+            this.progressBar.Location = new System.Drawing.Point(11, 76);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(253, 27);
+            this.progressBar.Size = new System.Drawing.Size(229, 27);
             this.progressBar.TabIndex = 7;
             this.progressBar.Visible = false;
             // 
@@ -110,7 +104,7 @@ namespace WinAppNET.Dialogs
             this.AcceptButton = this.btnSync;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 203);
+            this.ClientSize = new System.Drawing.Size(255, 118);
             this.Controls.Add(this.btnSync);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.txtPassword);
