@@ -36,7 +36,7 @@ namespace WinAppNET
             this.flowLayoutPanel1.Controls.Clear();
             foreach (Contact contact in this._matchingContacts)
             {
-                ListContact lc = new ListContact(contact.jid, this.Style);
+                ListContact lc = new ListContact(contact.jid);
                 lc.DoubleClick += this.listContact_DoubleClick;
                 this.flowLayoutPanel1.Controls.Add(lc);
             }

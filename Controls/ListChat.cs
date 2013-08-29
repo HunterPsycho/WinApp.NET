@@ -15,12 +15,11 @@ namespace WinAppNET.Controls
 {
     public partial class ListChat : MetroUserControl
     {
-        public ListChat(WappMessage msg, MetroFramework.MetroColorStyle style)
+        public ListChat(WappMessage msg)
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
-            this.Style = style;
-            this.metroTile1.Style = style;
-            this.metroTile1.BackColor = Helper.GetMetroThemeColor(style);
+            this.metroTile1.BackColor = Helper.GetMetroThemeColor(Helper.GlobalStyleManager.Style);
             if (msg.from_me)
             {
                 this.Padding = new Padding(50, this.Padding.Top, 4, this.Padding.Bottom);

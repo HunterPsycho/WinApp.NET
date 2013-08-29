@@ -139,7 +139,7 @@ namespace WinAppNET
             this.flowLayoutPanel1.Controls.Clear();
             foreach (WappMessage msg in this.messages)
             {
-                ListChat chat = new ListChat(msg, this.Style);
+                ListChat chat = new ListChat(msg);
                 this.flowLayoutPanel1.Controls.Add(chat);
             }
         }
@@ -303,7 +303,7 @@ namespace WinAppNET
 
         private void addChatMessage(WappMessage message)
         {
-            ListChat lc = new ListChat(message, this.Style);
+            ListChat lc = new ListChat(message);
             this.flowLayoutPanel1.Controls.Add(lc);
             while (this.flowLayoutPanel1.Controls.Count > MESSAGE_LIMIT)
             {

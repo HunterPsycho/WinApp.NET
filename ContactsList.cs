@@ -94,7 +94,7 @@ namespace WinAppNET
                             this.contacts.Add(contact);
 
                             //add to richtextbox
-                            ListContact c = new ListContact(contact.jid, this.Style);
+                            ListContact c = new ListContact(contact.jid);
                             c.DoubleClick += this.contact_dblClick;
                             this.flowLayoutPanel1.Controls.Add(c);
                         }

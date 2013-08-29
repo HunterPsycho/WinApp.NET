@@ -15,13 +15,13 @@ namespace WinAppNET.Controls
     public partial class ListContact : MetroUserControl
     {
         public Contact contact;
-        public ListContact(string jid, MetroFramework.MetroColorStyle style)
+        public ListContact(string jid)
         {
-            this.Style = style;
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
             int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
             this.Width -= vertScrollWidth;
-            this.BackColor = Helper.GetMetroThemeColor(style);
+            this.BackColor = Helper.GetMetroThemeColor(Helper.GlobalStyleManager.Style);
             this.contact = ContactStore.GetContactByJid(jid);
             if (this.contact != null)
             {
