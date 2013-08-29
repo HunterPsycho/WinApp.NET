@@ -46,9 +46,7 @@ namespace WinAppNET
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.textBox1.SelectedText = "";
             this.textBox1.Size = new System.Drawing.Size(259, 20);
-            this.textBox1.Style = MetroFramework.MetroColorStyle.Red;
             this.textBox1.TabIndex = 0;
-            this.textBox1.Theme = MetroFramework.MetroThemeStyle.Light;
             this.textBox1.UseSelectable = true;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -73,7 +71,6 @@ namespace WinAppNET
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(284, 424);
             this.Name = "ContactsSelector";
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Select a contact";
             this.ResumeLayout(false);
 

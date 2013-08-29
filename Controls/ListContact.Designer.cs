@@ -49,7 +49,6 @@
             this.lblName.Location = new System.Drawing.Point(59, 4);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(81, 19);
-            this.lblName.Style = MetroFramework.MetroColorStyle.Red;
             this.lblName.TabIndex = 1;
             this.lblName.Text = "metroLabel1";
             this.lblName.UseCustomBackColor = true;

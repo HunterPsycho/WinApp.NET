@@ -146,7 +146,6 @@ namespace WinAppNET
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ChatWindow";
-            this.Style = MetroFramework.MetroColorStyle.Red;
             this.Text = "Chat";
             this.Load += new System.EventHandler(this.ChatWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
