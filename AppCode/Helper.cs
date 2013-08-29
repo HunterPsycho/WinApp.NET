@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework.Components;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -9,6 +10,8 @@ namespace WinAppNET.AppCode
 {
     class Helper
     {
+        public static MetroStyleManager GlobalStyleManager = new MetroStyleManager() { Style = MetroFramework.MetroColorStyle.Green, Theme = MetroFramework.MetroThemeStyle.Light };
+
         public class ChatWindowParameters
         {
             public string jid;

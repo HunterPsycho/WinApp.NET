@@ -21,7 +21,6 @@ namespace WinAppNET
 {
     public partial class ContactsList : MetroForm
     {
-        public static MetroFramework.Components.MetroStyleManager StyleManager = new MetroFramework.Components.MetroStyleManager();
         public BindingList<Contact> contacts = new BindingList<Contact>();
         public Dictionary<string, ChatWindow> ChatWindows = new Dictionary<string, ChatWindow>();
         protected string username;
@@ -50,6 +49,7 @@ namespace WinAppNET
 
         public ContactsList()
         {
+            this.StyleManager = Helper.GlobalStyleManager;
             InitializeComponent();
             this.FormClosing += this.ContactsList_OnClosing;
         }
