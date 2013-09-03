@@ -161,12 +161,17 @@ namespace WinAppNET.AppCode
 'family_name'
 )
 VALUES (
-'" + contact.jid + @"',
-'" + contact.status + @"',
-'" + contact.nickname + @"',
-'" + contact.given_name + @"',
-'" + contact.family_name + @"'
+@jid,
+@status,
+@nickname,
+@given_name,
+@family_name
 )";
+                cmd.Parameters.Add(new SQLiteParameter("@jid", contact.jid));
+                cmd.Parameters.Add(new SQLiteParameter("@status", contact.status));
+                cmd.Parameters.Add(new SQLiteParameter("@nickname", contact.nickname));
+                cmd.Parameters.Add(new SQLiteParameter("@given_name", contact.given_name));
+                cmd.Parameters.Add(new SQLiteParameter("@family_name", contact.family_name));
                 cmd.ExecuteNonQuery();
             }
         }
