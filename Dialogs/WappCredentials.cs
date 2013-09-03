@@ -68,7 +68,8 @@ namespace WinAppNET.Dialogs
 
         private void onPasswordReceived(string username, string password)
         {
-
+            this.txtPhonenumber.Text = username;
+            this.txtPassword.Text = password;
         }
     }
 }
