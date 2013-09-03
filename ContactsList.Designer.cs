@@ -32,6 +32,8 @@ namespace WinAppNET
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactsList));
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnGoogle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -55,11 +57,33 @@ namespace WinAppNET
             this.flowLayoutPanel1.Size = new System.Drawing.Size(257, 363);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(253, 4);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(23, 23);
+            this.btnNew.TabIndex = 3;
+            this.btnNew.Text = "+";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.tileNew_Click);
+            // 
+            // btnGoogle
+            // 
+            this.btnGoogle.Location = new System.Drawing.Point(160, 4);
+            this.btnGoogle.Name = "btnGoogle";
+            this.btnGoogle.Size = new System.Drawing.Size(87, 23);
+            this.btnGoogle.TabIndex = 4;
+            this.btnGoogle.Text = "Google Import";
+            this.btnGoogle.UseVisualStyleBackColor = true;
+            this.btnGoogle.Click += new System.EventHandler(this.tileGoogle_Click);
+            // 
             // ContactsList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 425);
+            this.Controls.Add(this.btnGoogle);
+            this.Controls.Add(this.btnNew);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -76,5 +100,7 @@ namespace WinAppNET
 
         private Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Button btnNew;
+        private Button btnGoogle;
     }
 }
