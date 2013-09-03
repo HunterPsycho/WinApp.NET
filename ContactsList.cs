@@ -263,7 +263,7 @@ namespace WinAppNET
                     }
                     if (notification != null)
                     {
-                        if (notification.GetAttribute("type") == "picture")
+                        if (notification.GetAttribute("type") == "picture" && notification.GetChild("set") != null)
                         {
                             ChatWindow.GetImageAsync(notification.GetChild("set").GetAttribute("jid"), false);
                         }
