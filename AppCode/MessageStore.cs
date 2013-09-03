@@ -113,15 +113,21 @@ namespace WinAppNET.AppCode
 'preview'
 )
 VALUES (
-'" + message.jid + @"',
-'" + message.author + @"',
-'" + (message.from_me ? "1" : "0") + @"',
+@jid,
+@author,
+@from_me,
 @data,
-'" + message.timestamp.ToString() + @"',
-'" + message.type + @"',
-'" + message.preview + @"'
+@timestamp,
+@type,
+@preview
 )";
+                cmd.Parameters.Add(new SQLiteParameter("@jid", message.jid));
+                cmd.Parameters.Add(new SQLiteParameter("@author", message.author));
+                cmd.Parameters.Add(new SQLiteParameter("@from_me", (message.from_me ? "1" : "0")));
                 cmd.Parameters.Add(new SQLiteParameter("@data", message.data));
+                cmd.Parameters.Add(new SQLiteParameter("@timestamp", message.timestamp.ToString()));
+                cmd.Parameters.Add(new SQLiteParameter("@type", message.type));
+                cmd.Parameters.Add(new SQLiteParameter("@preview", message.preview));
                 cmd.ExecuteNonQuery();
             }
         }
