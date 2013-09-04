@@ -30,7 +30,7 @@ namespace WinAppNET.Controls
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblName = new Label();
+            this.lblName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,10 +46,10 @@ namespace WinAppNET.Controls
             // 
             this.lblName.AutoSize = true;
             this.lblName.BackColor = System.Drawing.Color.Transparent;
-            this.lblName.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblName.Location = new System.Drawing.Point(59, 4);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(81, 19);
+            this.lblName.Size = new System.Drawing.Size(65, 13);
             this.lblName.TabIndex = 1;
             this.lblName.Text = "metroLabel1";
             // 
@@ -58,11 +58,12 @@ namespace WinAppNET.Controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ListContact";
-            this.Size = new System.Drawing.Size(240, 60);
+            this.Size = new System.Drawing.Size(238, 58);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
