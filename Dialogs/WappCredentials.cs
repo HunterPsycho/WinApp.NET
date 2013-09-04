@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WinAppNET.AppCode;
 
 namespace WinAppNET.Dialogs
 {
@@ -27,11 +28,6 @@ namespace WinAppNET.Dialogs
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 this.Dispose();
             }
-        }
-
-        private void WappCredentials_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnRegister_Click(object sender, EventArgs e)

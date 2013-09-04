@@ -102,7 +102,6 @@ namespace WinAppNET.Dialogs
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WappCredentials";
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.WappCredentials_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
