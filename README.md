@@ -2,7 +2,7 @@ WinApp.NET
 ==========
 ![WinApp.NET](https://dl.dropboxusercontent.com/u/68235039/winapi.png)
 
-WhatsApp chat client using .NET4, MetroFramework and WhatsApiNet
+WhatsApp chat client using .NET4 and WhatsApiNet
 
 USAGE:
 You need an existing WhatsApp account with a valid password.
