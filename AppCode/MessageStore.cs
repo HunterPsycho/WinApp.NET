@@ -55,7 +55,10 @@ namespace WinAppNET.AppCode
                     string author = string.Empty;
                     try
                     {
-                        author = (string)reader["author"];
+                        if (reader["author"] != null)
+                        {
+                            author = reader["author"].ToString();
+                        }
                     }
                     catch (Exception e)
                     {
