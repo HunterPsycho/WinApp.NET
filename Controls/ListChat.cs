@@ -16,10 +16,10 @@ namespace WinAppNET.Controls
         public ListChat(WappMessage msg)
         {
             InitializeComponent();
-            if (msg.from_me)
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            if (!msg.from_me)
             {
                 this.textBox1.Location = new Point(3, this.textBox1.Location.Y);
-                this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             }
             if (!String.IsNullOrEmpty(msg.author))
             {

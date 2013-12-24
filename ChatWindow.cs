@@ -197,7 +197,7 @@ namespace WinAppNET
         }
 
         delegate void AddMessageCallback(string data);
-        delegate void AddMessageMediaCallback(string data, string type);
+        delegate void AddMessageCustomCallback(string from, string type, bool fromMe);
         delegate void AddMessageCallbackNode(ProtocolTreeNode node);
         delegate void SetOnlineCallback();
         delegate void SetLastSeenCallback(DateTime time);
@@ -286,17 +286,22 @@ namespace WinAppNET
             }
         }
 
-        public void AddMessage(string data, string type)
+        public void AddMessage(string from, string data, bool fromMe)
         {
-            //if (this.flowLayoutPanel1.InvokeRequired)
-            //{
-            //    AddMessageMediaCallback call = new AddMessageMediaCallback(data, type);
-            //    this.Invoke(call, 
-            //}
-            //else
-            //{
-
-            //}
+            if (this.flowLayoutPanel1.InvokeRequired)
+            {
+                AddMessageCustomCallback call = new AddMessageCustomCallback(AddMessage);
+                this.Invoke(call, new object[] { from, data, fromMe } );
+            }
+            else
+            {
+                WappMessage msg = new WappMessage(from, data, fromMe);
+                this.messages.Add(msg);
+                this.limitMessages();
+                MessageStore.AddMessage(msg);
+                this.addChatMessage(msg);
+                this.ScrollToBottom();
+            }
         }
 
         private void addChatMessage(WappMessage message)
@@ -309,29 +314,29 @@ namespace WinAppNET
             }
         }
 
-        public void AddMessage(ProtocolTreeNode node)
-        {
-            if (this.flowLayoutPanel1.InvokeRequired)
-            {
-                AddMessageCallbackNode r = new AddMessageCallbackNode(AddMessage);
-                this.Invoke(r, new object[] { node });
-            }
-            else
-            {
-                string author = String.Empty;
-                WappMessage msg = new WappMessage(node, this.target);
-                if (this.IsGroup)
-                {
-                    //extract author
-                    msg.author = node.GetAttribute("author");
-                }
-                this.messages.Add(msg);
-                this.limitMessages();
-                MessageStore.AddMessage(msg);
-                this.addChatMessage(msg);
-                this.ScrollToBottom();
-            }
-        }
+        //public void AddMessage(ProtocolTreeNode node)
+        //{
+        //    if (this.flowLayoutPanel1.InvokeRequired)
+        //    {
+        //        AddMessageCallbackNode r = new AddMessageCallbackNode(AddMessage);
+        //        this.Invoke(r, new object[] { node });
+        //    }
+        //    else
+        //    {
+        //        string author = String.Empty;
+        //        WappMessage msg = new WappMessage(node, this.target);
+        //        if (this.IsGroup)
+        //        {
+        //            //extract author
+        //            msg.author = node.GetAttribute("author");
+        //        }
+        //        this.messages.Add(msg);
+        //        this.limitMessages();
+        //        MessageStore.AddMessage(msg);
+        //        this.addChatMessage(msg);
+        //        this.ScrollToBottom();
+        //    }
+        //}
 
         private void limitMessages()
         {
@@ -420,7 +425,7 @@ namespace WinAppNET
                 {
                     filename = this.copyFileLocal(filename);
                     WappSocket.Instance.MessageImage(this.target, filename);
-                    this.AddMessage(filename, "image");
+                    //this.AddMessage(filename, "image");
                     this.ClearTextbox();
                 }
             }

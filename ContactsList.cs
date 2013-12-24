@@ -196,193 +196,193 @@ namespace WinAppNET
             return null;
         }
 
-        protected void ProcessMessages(ProtocolTreeNode[] nodes)
-        {
-            foreach (ProtocolTreeNode node in nodes)
-            {
-                if (node.tag.Equals("message"))
-                {
-                    ProtocolTreeNode body = node.GetChild("body");
-                    ProtocolTreeNode media = node.GetChild("media");
-                    ProtocolTreeNode paused = node.GetChild("paused");
-                    ProtocolTreeNode composing = node.GetChild("composing");
-                    ProtocolTreeNode notification = node.GetChild("notification");
-                    string jid = node.GetAttribute("from");
+        //protected void ProcessMessages(ProtocolTreeNode[] nodes)
+        //{
+        //    foreach (ProtocolTreeNode node in nodes)
+        //    {
+        //        if (node.tag.Equals("message"))
+        //        {
+        //            ProtocolTreeNode body = node.GetChild("body");
+        //            ProtocolTreeNode media = node.GetChild("media");
+        //            ProtocolTreeNode paused = node.GetChild("paused");
+        //            ProtocolTreeNode composing = node.GetChild("composing");
+        //            ProtocolTreeNode notification = node.GetChild("notification");
+        //            string jid = node.GetAttribute("from");
 
-                    if (body != null || media != null)
-                    {
-                        //extract and save nickname
-                        if (node.GetChild("notify") != null && node.GetChild("notify").GetAttribute("name") != null)
-                        {
-                            string nick = node.GetChild("notify").GetAttribute("name");
-                            Contact c = ContactStore.GetContactByJid(jid);
-                            if (c != null)
-                            {
-                                c.nickname = nick;
-                                ContactStore.UpdateNickname(c);
-                            }
-                        }
+        //            if (body != null || media != null)
+        //            {
+        //                //extract and save nickname
+        //                if (node.GetChild("notify") != null && node.GetChild("notify").GetAttribute("name") != null)
+        //                {
+        //                    string nick = node.GetChild("notify").GetAttribute("name");
+        //                    Contact c = ContactStore.GetContactByJid(jid);
+        //                    if (c != null)
+        //                    {
+        //                        c.nickname = nick;
+        //                        ContactStore.UpdateNickname(c);
+        //                    }
+        //                }
 
-                        try
-                        {
-                            this.getChat(jid, true, false).AddMessage(node);
-                        }
-                        catch (Exception)
-                        { }
+        //                try
+        //                {
+        //                    this.getChat(jid, true, false).AddMessage(node);
+        //                }
+        //                catch (Exception)
+        //                { }
 
-                        //refresh list
-                        this._loadConversations();
-                    }
-                    if (paused != null)
-                    {
-                        try
-                        {
-                            if (this.getChat(jid, false, false) != null)
-                            {
-                                this.getChat(jid, false, false).SetOnline();
-                            }
-                        }
-                        catch (Exception) 
-                        {
-                            //throw e;
-                        }
-                    }
-                    if (composing != null)
-                    {
-                        try
-                        {
-                            if (this.getChat(jid, false, false) != null)
-                            {
-                                this.getChat(jid, false, false).SetTyping();
-                            }
-                        }
-                        catch (Exception) 
-                        {
-                            //throw e;
-                        }
-                    }
-                    if (notification != null)
-                    {
-                        if (notification.GetAttribute("type") == "picture" && notification.GetChild("set") != null)
-                        {
-                            ChatWindow.GetImageAsync(notification.GetChild("set").GetAttribute("jid"), false);
-                        }
-                    }
-                }
-                else if (node.tag.Equals("presence"))
-                {
-                    string jid = node.GetAttribute("from");
-                    if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("available"))
-                    {
-                        try
-                        {
-                            if (this.getChat(jid, false, false) != null)
-                            {
-                                this.getChat(jid, false, false).SetOnline();
-                            }
-                        }
-                        catch (Exception) 
-                        {
-                            //throw e;
-                        }
-                    }
-                    if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("unavailable"))
-                    {
-                        try
-                        {
-                            if (this.getChat(jid, false, false) != null)
-                            {
-                                this.getChat(jid, false, false).SetUnavailable();
-                            }
-                        }
-                        catch (Exception) 
-                        { }
-                    }
-                }
-                else if (node.tag.Equals("iq"))
-                {
-                    string jid = node.GetAttribute("from");
+        //                //refresh list
+        //                this._loadConversations();
+        //            }
+        //            if (paused != null)
+        //            {
+        //                try
+        //                {
+        //                    if (this.getChat(jid, false, false) != null)
+        //                    {
+        //                        this.getChat(jid, false, false).SetOnline();
+        //                    }
+        //                }
+        //                catch (Exception) 
+        //                {
+        //                    //throw e;
+        //                }
+        //            }
+        //            if (composing != null)
+        //            {
+        //                try
+        //                {
+        //                    if (this.getChat(jid, false, false) != null)
+        //                    {
+        //                        this.getChat(jid, false, false).SetTyping();
+        //                    }
+        //                }
+        //                catch (Exception) 
+        //                {
+        //                    //throw e;
+        //                }
+        //            }
+        //            if (notification != null)
+        //            {
+        //                if (notification.GetAttribute("type") == "picture" && notification.GetChild("set") != null)
+        //                {
+        //                    ChatWindow.GetImageAsync(notification.GetChild("set").GetAttribute("jid"), false);
+        //                }
+        //            }
+        //        }
+        //        else if (node.tag.Equals("presence"))
+        //        {
+        //            string jid = node.GetAttribute("from");
+        //            if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("available"))
+        //            {
+        //                try
+        //                {
+        //                    if (this.getChat(jid, false, false) != null)
+        //                    {
+        //                        this.getChat(jid, false, false).SetOnline();
+        //                    }
+        //                }
+        //                catch (Exception) 
+        //                {
+        //                    //throw e;
+        //                }
+        //            }
+        //            if (node.GetAttribute("type") != null && node.GetAttribute("type").Equals("unavailable"))
+        //            {
+        //                try
+        //                {
+        //                    if (this.getChat(jid, false, false) != null)
+        //                    {
+        //                        this.getChat(jid, false, false).SetUnavailable();
+        //                    }
+        //                }
+        //                catch (Exception) 
+        //                { }
+        //            }
+        //        }
+        //        else if (node.tag.Equals("iq"))
+        //        {
+        //            string jid = node.GetAttribute("from");
 
-                    if (node.children.First().tag.Equals("query"))
-                    {
-                        DateTime lastseen = DateTime.Now;
-                        int seconds = Int32.Parse(node.GetChild("query").GetAttribute("seconds"));
-                        lastseen = lastseen.Subtract(new TimeSpan(0, 0, seconds));
-                        try
-                        {
-                            if (this.getChat(jid, false, false) != null)
-                            {
-                                getChat(jid, false, false).SetLastSeen(lastseen);
-                            }
-                        }
-                        catch (Exception)
-                        { }
-                    }
-                    else if (node.children.First().tag.Equals("group"))
-                    {
-                        string subject = node.children.First().GetAttribute("subject");
-                        Contact cont = ContactStore.GetContactByJid(jid);
-                        if (cont != null)
-                        {
-                            cont.nickname = subject;
-                            ContactStore.UpdateNickname(cont);
-                        }
-                        else
-                        {
+        //            if (node.children.First().tag.Equals("query"))
+        //            {
+        //                DateTime lastseen = DateTime.Now;
+        //                int seconds = Int32.Parse(node.GetChild("query").GetAttribute("seconds"));
+        //                lastseen = lastseen.Subtract(new TimeSpan(0, 0, seconds));
+        //                try
+        //                {
+        //                    if (this.getChat(jid, false, false) != null)
+        //                    {
+        //                        getChat(jid, false, false).SetLastSeen(lastseen);
+        //                    }
+        //                }
+        //                catch (Exception)
+        //                { }
+        //            }
+        //            else if (node.children.First().tag.Equals("group"))
+        //            {
+        //                string subject = node.children.First().GetAttribute("subject");
+        //                Contact cont = ContactStore.GetContactByJid(jid);
+        //                if (cont != null)
+        //                {
+        //                    cont.nickname = subject;
+        //                    ContactStore.UpdateNickname(cont);
+        //                }
+        //                else
+        //                {
 
-                        }
-                    }
-                    else if (node.children.First().tag.Equals("picture"))
-                    {
-                        string pjid = node.GetAttribute("from");
-                        string id = node.GetAttribute("id");
-                        byte[] rawpicture = node.GetChild("picture").GetData();
-                        Contact c = ContactStore.GetContactByJid(pjid);
-                        if (c != null)
-                        {
-                            Image img = null;
-                            using (var ms = new MemoryStream(rawpicture))
-                            {
-                                try
-                                {
-                                    img = Image.FromStream(ms);
-                                    string targetdir = Directory.GetCurrentDirectory() + "\\data\\profilecache";
-                                    if (!Directory.Exists(targetdir))
-                                    {
-                                        Directory.CreateDirectory(targetdir);
-                                    }
-                                    img.Save(targetdir + "\\" + c.jid + ".jpg");
-                                    try
-                                    {
-                                        if (this.getChat(pjid, false, false) != null)
-                                        {
-                                            this.getChat(pjid, false, false).SetPicture(img);
-                                        }
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        throw e;
-                                    }
-                                }
-                                catch (Exception e)
-                                {
-                                    throw e;
-                                }
-                            }
-                        }
-                        if(picturesToSync.Remove(pjid))
-                            this.requestProfilePicture();
+        //                }
+        //            }
+        //            else if (node.children.First().tag.Equals("picture"))
+        //            {
+        //                string pjid = node.GetAttribute("from");
+        //                string id = node.GetAttribute("id");
+        //                byte[] rawpicture = node.GetChild("picture").GetData();
+        //                Contact c = ContactStore.GetContactByJid(pjid);
+        //                if (c != null)
+        //                {
+        //                    Image img = null;
+        //                    using (var ms = new MemoryStream(rawpicture))
+        //                    {
+        //                        try
+        //                        {
+        //                            img = Image.FromStream(ms);
+        //                            string targetdir = Directory.GetCurrentDirectory() + "\\data\\profilecache";
+        //                            if (!Directory.Exists(targetdir))
+        //                            {
+        //                                Directory.CreateDirectory(targetdir);
+        //                            }
+        //                            img.Save(targetdir + "\\" + c.jid + ".jpg");
+        //                            try
+        //                            {
+        //                                if (this.getChat(pjid, false, false) != null)
+        //                                {
+        //                                    this.getChat(pjid, false, false).SetPicture(img);
+        //                                }
+        //                            }
+        //                            catch (Exception e)
+        //                            {
+        //                                throw e;
+        //                            }
+        //                        }
+        //                        catch (Exception e)
+        //                        {
+        //                            throw e;
+        //                        }
+        //                    }
+        //                }
+        //                if(picturesToSync.Remove(pjid))
+        //                    this.requestProfilePicture();
                         
-                    }
-                    else if (node.children.First().tag.Equals("error") && node.children.First().GetAttribute("code") == "404")
-                    {
-                        string pjid = node.GetAttribute("from");
-                        picturesToSync.Remove(pjid);
-                        this.requestProfilePicture();
-                    }
-                }
-            }
-        }
+        //            }
+        //            else if (node.children.First().tag.Equals("error") && node.children.First().GetAttribute("code") == "404")
+        //            {
+        //                string pjid = node.GetAttribute("from");
+        //                picturesToSync.Remove(pjid);
+        //                this.requestProfilePicture();
+        //            }
+        //        }
+        //    }
+        //}
 
         private void KeepAlive()
         {
@@ -400,21 +400,23 @@ namespace WinAppNET
                 try
                 {
                     WappSocket.Instance.PollMessages();
-                    ProtocolTreeNode[] nodes = WappSocket.Instance.GetAllMessages();
-                    this.ProcessMessages(nodes);
                 }
                 catch (Exception)
                 {
+                    //reset
                     WappSocket.Instance.ClearIncomplete();
-                    //throw new Exception("Socket timed out. Reconnect please. (TO BE IMPLEMENTED)");
                     WappSocket.Instance.Disconnect();
                     WappSocket.Instance.Connect();
-                    WappSocket.Instance.Login();
-                    //retry
-                    this.requestProfilePicture();
+                    return;
                 }
                 Thread.Sleep(500);
             }
+        }
+
+        private void doRefreshContactPictures()
+        {
+            picturesToSync = this.refreshContactPictures();
+            this.requestProfilePicture();
         }
 
         private List<string> refreshContactPictures()
@@ -466,12 +468,89 @@ namespace WinAppNET
             this.username = this.getUsername();
             this.password = this.GetPassword();
 
-            if (!this.checkCredentials())
+            ContactStore.CheckTable();
+            MessageStore.CheckTable();
+
+            WappSocket.Create(this.username, this.password, nickname, true);
+            
+            this.bindAll();
+
+            Thread t = new Thread(new ThreadStart(WappSocket.Instance.Connect));
+            t.IsBackground = true;
+            t.Start();
+
+            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            this.flowLayoutPanel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
+
+            this._loadConversations();
+        }
+
+        private void bindAll()
+        {
+            //bindings
+            WappSocket.Instance.OnConnectFailed += Instance_OnConnectFailed;
+            WappSocket.Instance.OnConnectSuccess += Instance_OnConnectSuccess;
+            WappSocket.Instance.OnDisconnect += Instance_OnDisconnect;
+            WappSocket.Instance.OnError += Instance_OnError;
+            WappSocket.Instance.OnGetGroupParticipants += Instance_OnGetGroupParticipants;
+            WappSocket.Instance.OnGetGroups += Instance_OnGetGroups;
+            WappSocket.Instance.OnGetLastSeen += Instance_OnGetLastSeen;
+            WappSocket.Instance.OnGetMessage += Instance_OnGetMessage;
+            WappSocket.Instance.OnGetContactName += Instance_OnGetContactName;
+            WappSocket.Instance.OnGetMessageAudio += Instance_OnGetMessageAudio;
+            WappSocket.Instance.OnGetMessageImage += Instance_OnGetMessageImage;
+            WappSocket.Instance.OnGetMessageLocation += Instance_OnGetMessageLocation;
+            WappSocket.Instance.OnGetMessageReceivedClient += Instance_OnGetMessageReceivedClient;
+            WappSocket.Instance.OnGetMessageReceivedServer += Instance_OnGetMessageReceivedServer;
+            WappSocket.Instance.OnGetMessageVcard += Instance_OnGetMessageVcard;
+            WappSocket.Instance.OnGetMessageVideo += Instance_OnGetMessageVideo;
+            WappSocket.Instance.OnGetPaused += Instance_OnGetPaused;
+            WappSocket.Instance.OnGetPhoto += Instance_OnGetPhoto;
+            WappSocket.Instance.OnGetPhotoPreview += Instance_OnGetPhotoPreview;
+            WappSocket.Instance.OnGetPresence += Instance_OnGetPresence;
+            WappSocket.Instance.OnGetTyping += Instance_OnGetTyping;
+            WappSocket.Instance.OnLoginFailed += Instance_OnLoginFailed;
+            WappSocket.Instance.OnLoginSuccess += Instance_OnLoginSuccess;
+            WappSocket.Instance.OnNotificationPicture += Instance_OnNotificationPicture;
+        }
+
+        void Instance_OnGetContactName(string from, string contactName)
+        {
+            this.updateNick(from, contactName);
+        }
+
+        void Instance_OnNotificationPicture(string type, string jid, string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnLoginSuccess(byte[] data)
+        {
+            this.saveConfig();
+
+            WAlistener = new Thread(new ThreadStart(Listen));
+            WAlistener.IsBackground = true;
+            WAlistener.Start();
+
+            //this.SyncWaContactsAsync();
+            //Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
+            //t.IsBackground = true;
+            //t.Start();
+
+            Thread alive = new Thread(new ThreadStart(KeepAlive));
+            alive.IsBackground = true;
+            alive.Start();
+
+            Thread picsync = new Thread(new ThreadStart(this.doRefreshContactPictures));
+            picsync.IsBackground = true;
+            picsync.Start();
+        }
+
+        void Instance_OnLoginFailed(string data)
+        {
+            if (data == "not-authorized")
             {
-                bool validCredentials = false;
-                do
-                {
-                    //throw new Exception("Please enter credentials!");
+                //show reg form
                     WappCredentials creds = new WappCredentials();
                     DialogResult r = creds.ShowDialog();
                     if (r != System.Windows.Forms.DialogResult.OK)
@@ -484,51 +563,230 @@ namespace WinAppNET
                     this.password = this.GetPassword();
                     if (!string.IsNullOrEmpty(this.username) && !string.IsNullOrEmpty(this.password))
                     {
-                        WappSocket.Create(username, password, "WinApp.NET", false);
+                        WappSocket.Create(this.username, this.password, "WinApp.NET", true);
+                        this.bindAll();
                         WappSocket.Instance.Connect();
-                        WappSocket.Instance.Login();
-                        if (WappSocket.Instance.ConnectionStatus == WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN)
+                    }
+            }
+            if (data == "blocked")
+            {
+                throw new Exception("blocked!");
+            }
+        }
+
+        private void saveConfig()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            AppSettingsSection app = config.AppSettings;
+            app.Settings.Remove("Username");
+            app.Settings.Add("Username", this.username);
+            app.Settings.Remove("Password");
+            app.Settings.Add("Password", this.password);
+            config.Save(ConfigurationSaveMode.Modified);
+        }
+
+        void Instance_OnGetTyping(string from)
+        {
+            try
+            {
+                this.getChat(from, false, false).SetTyping();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        void Instance_OnGetPresence(string from, string type)
+        {
+            if (!from.StartsWith(this.username))
+            {
+                try
+                {
+                    switch (type)
+                    {
+                        case "available":
+                            this.getChat(from, false, false).SetOnline();
+                            break;
+                        case "unavailable":
+                            this.getChat(from, false, false).SetUnavailable();
+                            break;
+                        default:
+                            throw new Exception(type);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        void Instance_OnGetPhotoPreview(string from, string id, byte[] data)
+        {
+            Contact c = ContactStore.GetContactByJid(from);
+            if (c != null)
+            {
+                Image img = null;
+                using (var ms = new MemoryStream(data))
+                {
+                    try
+                    {
+                        img = Image.FromStream(ms);
+                        string targetdir = Directory.GetCurrentDirectory() + "\\data\\profilecache";
+                        if (!Directory.Exists(targetdir))
                         {
-                            validCredentials = true;
-                            //write to config
-                            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                            AppSettingsSection app = config.AppSettings;
-                            app.Settings.Remove("Username");
-                            app.Settings.Add("Username", this.username);
-                            app.Settings.Remove("Password");
-                            app.Settings.Add("Password", this.password);
-                            config.Save(ConfigurationSaveMode.Modified);
+                            Directory.CreateDirectory(targetdir);
                         }
-                        else
+                        img.Save(targetdir + "\\" + c.jid + ".jpg");
+                        try
                         {
-                            WappSocket.Instance.Disconnect();
+                            if (this.getChat(from, false, false) != null)
+                            {
+                                this.getChat(from, false, false).SetPicture(img);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            throw e;
                         }
                     }
-                } while (!validCredentials);
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
             }
-            ContactStore.CheckTable();
-            MessageStore.CheckTable();
+            if (picturesToSync.Remove(from))
+            {
+                this.requestProfilePicture();
+            }
+        }
 
-            WappSocket.Create(this.username, this.password, nickname, true);
-            WappSocket.Instance.Connect();
+        void Instance_OnGetPhoto(string from, string id, byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetPaused(string from)
+        {
+            try
+            {
+                this.getChat(from, false, false).SetOnline();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        void Instance_OnGetMessageVideo(string from, string id, string fileName, int fileSize, string url, byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageVcard(string from, string id, string name, byte[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageReceivedServer(string from, string id)
+        {
+            //throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageReceivedClient(string from, string id)
+        {
+            //throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageLocation(string from, string id, double lon, double lat, string url, string name, byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageImage(string from, string id, string fileName, int fileSize, string url, byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessageAudio(string from, string id, string fileName, int fileSize, string url, byte[] preview)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetMessage(string from, string id, string message)
+        {
+            try
+            {
+                this.getChat(from, true, true).AddMessage(from, message, (from.StartsWith(this.username)));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            this._loadConversations();
+        }
+
+        void Instance_OnGetLastSeen(string from, DateTime lastSeen)
+        {
+            try
+            {
+                this.getChat(from, false, false).SetLastSeen(lastSeen);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        void Instance_OnGetGroups(WhatsAppApi.WhatsApp.GroupInfo[] groups)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnGetGroupParticipants(string gjid, string[] jids)
+        {
+            throw new NotImplementedException();
+        }
+
+        void Instance_OnError(string id, string from, int code, string text)
+        {
+            if(id.StartsWith("get_photo_"))
+            {
+                if (picturesToSync.Remove(from))
+                {
+                    this.requestProfilePicture();
+                }
+            }
+        }
+
+        void Instance_OnDisconnect(Exception ex)
+        {
+            if (ex != null)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        void Instance_OnConnectSuccess()
+        {
             WappSocket.Instance.Login();
-            WappSocket.Instance.sendNickname(nickname);
+        }
 
-            WAlistener = new Thread(new ThreadStart(Listen));
-            WAlistener.IsBackground = true;
-            WAlistener.Start();
+        void Instance_OnConnectFailed(Exception ex)
+        {
+            throw new NotImplementedException();
+        }
 
-            //this.SyncWaContactsAsync();
-            Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
-            t.IsBackground = true;
-            t.Start();
-
-            Thread alive = new Thread(new ThreadStart(KeepAlive));
-            alive.IsBackground = true;
-            alive.Start();
-
-            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
-            this.flowLayoutPanel1.Padding = new Padding(0, 0, vertScrollWidth, 0);
+        private void updateNick(string jid, string nick)
+        {
+            Contact c = ContactStore.GetContactByJid(jid);
+            if (c != null)
+            {
+                c.nickname = nick;
+                ContactStore.UpdateNickname(c);
+            }
         }
 
         private void requestProfilePicture()

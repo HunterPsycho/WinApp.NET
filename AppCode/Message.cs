@@ -36,38 +36,12 @@ namespace WinAppNET.AppCode
             this.preview = preview;
         }
 
-        public WappMessage(ProtocolTreeNode node, string jid)
+        public WappMessage(string from, string message, bool fromMe)
         {
-            ProtocolTreeNode body = node.GetChild("body");
-            ProtocolTreeNode media = node.GetChild("media");
-            if (node.tag == "message")
-            {
-                if (node.GetAttribute("type") == "subject")
-                {
-                    Contact c = ContactStore.GetContactByJid(node.GetAttribute("author"));
-                    this.data = c.ToString() + " changed subject to \"" + Encoding.ASCII.GetString(node.GetChild("body").GetData()) + "\"";
-                }
-                else
-                {
-                    if (body != null)
-                    {
-                        this.data = Encoding.ASCII.GetString(node.GetChild("body").GetData());
-                        this.type = "text";
-                    }
-                    else if (media != null)
-                    {
-                        this.type = media.GetAttribute("type");
-                        if (media.data != null && media.data.Length > 0)
-                        {
-                            this.preview = Convert.ToBase64String(media.data);
-                        }
-                        this.data = media.GetAttribute("url");
-                    }
-                }
-                this.from_me = false;
-                this.timestamp = DateTime.UtcNow;
-                this.jid = jid;
-            }
+            this.from_me = fromMe;
+            this.timestamp = DateTime.UtcNow;
+            this.jid = from;
+            this.data = message;
         }
 
         public override String ToString()
