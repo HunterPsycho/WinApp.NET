@@ -38,8 +38,8 @@ namespace WinAppNET
         void ProcessChat()
         {
             this.Text = ContactStore.GetContactByJid(this.target).FullName;
-            WappSocket.Instance.WhatsSendHandler.SendQueryLastOnline(this.target);
-            WappSocket.Instance.WhatsSendHandler.SendPresenceSubscriptionRequest(this.target);
+            WappSocket.Instance.SendQueryLastOnline(this.target);
+            WappSocket.Instance.SendPresenceSubscriptionRequest(this.target);
 
             //load image
             string filepath = getCacheImagePath(this.target);
@@ -69,13 +69,13 @@ namespace WinAppNET
 
         public static string GetImageAsync(string jid, bool large)
         {
-            return WappSocket.Instance.WhatsSendHandler.SendGetPhoto(jid, large);
+            return WappSocket.Instance.SendGetPhoto(jid, string.Empty, large);
         }
 
         void ProcessGroupChat()
         {
             this.Text = "Group chat " + ContactStore.GetContactByJid(this.target).ToString();
-            WappSocket.Instance.WhatsSendHandler.SendGetGroupInfo(this.target);
+            WappSocket.Instance.SendGetGroupInfo(this.target);
         }
 
         public ChatWindow(string target, bool stealFocus, bool onTop)
@@ -354,7 +354,7 @@ namespace WinAppNET
                 {
                     this.state = ClientState.TYPING;
                     this.button1.Enabled = true;
-                    WappSocket.Instance.WhatsSendHandler.SendComposing(this.target);
+                    WappSocket.Instance.SendComposing(this.target);
                 }
             }
             else
@@ -363,7 +363,7 @@ namespace WinAppNET
                 {
                     this.state = ClientState.ONLINE;
                     this.button1.Enabled = false;
-                    WappSocket.Instance.WhatsSendHandler.SendPaused(this.target);
+                    WappSocket.Instance.SendPaused(this.target);
                 }
             }
         }
@@ -372,7 +372,7 @@ namespace WinAppNET
         {
             if (!String.IsNullOrEmpty(this.textBox1.Text))
             {
-                WappSocket.Instance.Message(this.target, textBox1.Text);
+                WappSocket.Instance.SendMessage(this.target, textBox1.Text);
                 this.AddMessage(this.textBox1.Text);
                 this.textBox1.Clear();
             }
@@ -424,7 +424,8 @@ namespace WinAppNET
                 if (File.Exists(filename))
                 {
                     filename = this.copyFileLocal(filename);
-                    WappSocket.Instance.MessageImage(this.target, filename);
+
+                    WappSocket.Instance.SendMessageImage(this.target, File.ReadAllBytes(filename), WhatsAppApi.ApiBase.ImageType.JPEG);
                     //this.AddMessage(filename, "image");
                     this.ClearTextbox();
                 }

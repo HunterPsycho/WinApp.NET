@@ -106,7 +106,7 @@ namespace WinAppNET
 
         protected void SyncWaContactsAsync()
         {
-            ContactStore.SyncWaContacts(this.username, this.password);
+            ContactStore.SyncWaContacts();
             //resync pictures
             picturesToSync = this.refreshContactPictures();
             this.requestProfilePicture();
@@ -389,7 +389,7 @@ namespace WinAppNET
             while (true)
             {
                 Thread.Sleep(150000);
-                WappSocket.Instance.WhatsSendHandler.SendActive();
+                WappSocket.Instance.SendActive();
             }
         }
 
@@ -404,7 +404,6 @@ namespace WinAppNET
                 catch (Exception)
                 {
                     //reset
-                    WappSocket.Instance.ClearIncomplete();
                     WappSocket.Instance.Disconnect();
                     WappSocket.Instance.Connect();
                     return;
@@ -512,6 +511,17 @@ namespace WinAppNET
             WappSocket.Instance.OnLoginFailed += Instance_OnLoginFailed;
             WappSocket.Instance.OnLoginSuccess += Instance_OnLoginSuccess;
             WappSocket.Instance.OnNotificationPicture += Instance_OnNotificationPicture;
+            WappSocket.Instance.OnGetSyncResult += Instance_OnGetSyncResult;
+        }
+
+        void Instance_OnGetSyncResult(int index, string sid, Dictionary<string, string> existingUsers, string[] failedNumbers)
+        {
+            ContactStore.OnSyncResult(existingUsers, failedNumbers);
+        }
+
+        private void Instance_OnGetGroups(WhatsAppApi.Response.WaGroupInfo[] groups)
+        {
+            throw new NotImplementedException();
         }
 
         void Instance_OnGetContactName(string from, string contactName)
@@ -524,18 +534,13 @@ namespace WinAppNET
             throw new NotImplementedException();
         }
 
-        void Instance_OnLoginSuccess(byte[] data)
+        void Instance_OnLoginSuccess(string number, byte[] data)
         {
             this.saveConfig();
 
             WAlistener = new Thread(new ThreadStart(Listen));
             WAlistener.IsBackground = true;
             WAlistener.Start();
-
-            //this.SyncWaContactsAsync();
-            //Thread t = new Thread(new ThreadStart(SyncWaContactsAsync));
-            //t.IsBackground = true;
-            //t.Start();
 
             Thread alive = new Thread(new ThreadStart(KeepAlive));
             alive.IsBackground = true;
@@ -715,7 +720,7 @@ namespace WinAppNET
             throw new NotImplementedException();
         }
 
-        void Instance_OnGetMessage(string from, string id, string message)
+        void Instance_OnGetMessage(ProtocolTreeNode messageNode, string from, string id, string name, string message, bool receipt_sent)
         {
             try
             {
@@ -738,11 +743,6 @@ namespace WinAppNET
             {
                 Console.WriteLine(ex);
             }
-        }
-
-        void Instance_OnGetGroups(WhatsAppApi.WhatsApp.GroupInfo[] groups)
-        {
-            throw new NotImplementedException();
         }
 
         void Instance_OnGetGroupParticipants(string gjid, string[] jids)

@@ -8,6 +8,7 @@ using System.Data.SQLite;
 using Google.GData.Contacts;
 using Google.GData.Extensions;
 using WhatsAppApi.Helper;
+using WhatsAppApi;
 
 namespace WinAppNET.AppCode
 {
@@ -50,47 +51,59 @@ namespace WinAppNET.AppCode
             }
         }
 
-        public static void SyncWaContacts(string username, string password)
+        public static void SyncWaContacts()
         {
             Contact[] contacts = ContactStore.GetAllContacts();
             List<string> input = new List<string>();
             foreach (Contact c in contacts)
             {
-                input.Add(c.jid.Split('@').First());
+                input.Add("+" + c.jid.Split('@').First());
             }
-            ContactSync s = new ContactSync(username, password);
-            try
-            {
-                ContactSyncResult[] res = s.Sync(input.ToArray());
 
-                if (res != null)
+            WappSocket.Instance.SendSync(input.ToArray(), "full", "background");            
+            
+            
+            //            if (r.w == 1)
+            //            {
+            //                string jid = r.n + "@s.whatsapp.net";
+            //                Contact con = ContactStore.GetContactByJid(jid);
+            //                if (con != null && con.status != r.s)
+            //                {
+            //                    //update status if changed
+            //                    con.status = r.s;
+            //                    ContactStore.UpdateStatus(con);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                //delete
+            //                Contact con = ContactStore.GetContactByJid(r.n + "@s.whatsapp.net");
+            //                if (con != null)
+            //                {
+            //                    ContactStore.DeleteContact(con);
+            //                }
+            //            }
+        }
+
+        public static void OnSyncResult(Dictionary<string, string> existingUsers, string[] failedNumbers)
+        {
+            //add successful
+            foreach (string jid in existingUsers.Values)
+            {
+                //auto create
+                ContactStore.GetContactByJid(jid);
+            }
+
+            //delete failed
+            foreach (string num in failedNumbers)
+            {
+                
+                Contact con = ContactStore.GetContactByJid(WhatsApp.GetJID(num));
+                if (con != null)
                 {
-                    foreach (ContactSyncResult r in res)
-                    {
-                        if (r.w == 1)
-                        {
-                            string jid = r.n + "@s.whatsapp.net";
-                            Contact con = ContactStore.GetContactByJid(jid);
-                            if (con != null && con.status != r.s)
-                            {
-                                //update status if changed
-                                con.status = r.s;
-                                ContactStore.UpdateStatus(con);
-                            }
-                        }
-                        else
-                        {
-                            //delete
-                            Contact con = ContactStore.GetContactByJid(r.n + "@s.whatsapp.net");
-                            if (con != null)
-                            {
-                                ContactStore.DeleteContact(con);
-                            }
-                        }
-                    }
+                    ContactStore.DeleteContact(con);
                 }
             }
-            catch (Exception) { }
         }
 
         public static void CheckTable()

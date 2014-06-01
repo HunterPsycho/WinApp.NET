@@ -27,8 +27,7 @@ namespace WinAppNET.Dialogs
             {
                 try
                 {
-                    WhatsAppApi.Parser.PhoneNumber pn = new WhatsAppApi.Parser.PhoneNumber(this.phonenumber);
-                    this.password = WhatsAppApi.Register.WhatsRegisterV2.RegisterCode(pn.CC, pn.Number, this.txtCode.Text, this.identity);
+                    this.password = WhatsAppApi.Register.WhatsRegisterV2.RegisterCode(this.phonenumber, this.txtCode.Text, this.identity);
                     if (!string.IsNullOrEmpty(this.password))
                     {
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
